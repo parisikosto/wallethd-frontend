@@ -1,5 +1,3 @@
-'use client';
-
 import type { ComponentProps, JSX } from 'react';
 import { Portal } from '@radix-ui/react-dialog';
 

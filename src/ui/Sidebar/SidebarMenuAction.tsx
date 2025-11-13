@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { ComponentProps, JSX } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '@/lib/utils';
@@ -8,7 +8,7 @@ export const SidebarMenuAction = ({
   className,
   showOnHover = false,
   ...props
-}: React.ComponentProps<'button'> & {
+}: ComponentProps<'button'> & {
   asChild?: boolean;
   showOnHover?: boolean;
 }): JSX.Element => {

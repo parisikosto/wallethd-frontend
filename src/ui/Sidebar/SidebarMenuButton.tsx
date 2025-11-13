@@ -2,12 +2,8 @@ import type { ComponentProps, JSX } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import type { VariantProps } from 'class-variance-authority';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/Tooltip';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui/Tooltip';
 
 import { useSidebar } from './contexts';
 import { sidebarMenuButtonVariants } from './sidebarMenuButtonVariants';
@@ -20,7 +16,7 @@ export const SidebarMenuButton = ({
   tooltip,
   variant = 'default',
   ...props
-}: React.ComponentProps<'button'> & {
+}: ComponentProps<'button'> & {
   asChild?: boolean;
   isActive?: boolean;
   tooltip?: string | ComponentProps<typeof TooltipContent>;

@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/Sidebar';
+} from '@/ui/Sidebar';
 
 const menuItems = [
   {
@@ -36,7 +36,7 @@ export const AppSidebar = (): JSX.Element => {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>WalletHD</SidebarGroupLabel>
+          <SidebarGroupLabel>Wallet HD</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

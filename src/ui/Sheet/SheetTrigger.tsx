@@ -1,5 +1,3 @@
-'use client';
-
 import type { ComponentProps, JSX } from 'react';
 import { Trigger } from '@radix-ui/react-dialog';
 

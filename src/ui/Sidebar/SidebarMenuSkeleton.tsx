@@ -5,8 +5,8 @@ import {
   useMemo,
 } from 'react';
 
-import { Skeleton } from '@/components/ui/Skeleton';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/ui/Skeleton';
 
 export const SidebarMenuSkeleton = ({
   className,

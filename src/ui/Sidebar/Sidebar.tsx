@@ -1,13 +1,13 @@
-import type { ComponentProps, JSX } from 'react';
+import type { ComponentProps, CSSProperties, JSX } from 'react';
 
+import { cn } from '@/lib/utils';
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/Sheet';
-import { cn } from '@/lib/utils';
+} from '@/ui/Sheet';
 
 import { useSidebar } from './contexts';
 
@@ -53,7 +53,7 @@ export const Sidebar = ({
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-            } as React.CSSProperties
+            } as CSSProperties
           }
           side={side}
         >
