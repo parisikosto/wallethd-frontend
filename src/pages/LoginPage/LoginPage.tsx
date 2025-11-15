@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { WalletMinimal } from 'lucide-react';
 
-import { LoginForm } from '@/components';
+import { LoginForm } from '@/features';
 import { FieldDescription } from '@/ui';
 
 export const LoginPage = (): JSX.Element => {

@@ -8,3 +8,14 @@ export interface LoginResData {
   success: boolean;
   token?: string;
 }
+
+export interface UserProfile {
+  _id: string;
+  createdAt: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  profileImage: string;
+  updatedAt: string;
+  username: string;
+}

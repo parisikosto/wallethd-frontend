@@ -1,6 +1,11 @@
 import { axiosInstance } from '../axiosInstance';
 import { LOCAL_STORAGE_TOKEN_NAME } from '../config';
-import type { LoginReqData, LoginResData } from '../interfaces';
+import type {
+  ApiGenericResponse,
+  LoginReqData,
+  LoginResData,
+  UserProfile,
+} from '../interfaces';
 
 const authUrl = '/v1/auth';
 
@@ -21,5 +26,17 @@ export const loginApi = async (
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
+  return res.data;
+};
+
+/**
+ * @desc    Get current logged in user
+ * @route   GET /v1/auth/profile
+ * @access  Private
+ */
+export const getUserProfileApi = async (): Promise<
+  ApiGenericResponse<UserProfile>
+> => {
+  const res = await axiosInstance.get(`${authUrl}/profile`);
   return res.data;
 };

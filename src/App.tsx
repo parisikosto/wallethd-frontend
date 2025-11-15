@@ -1,19 +1,18 @@
 import type { JSX } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { HomePage, LoginPage, SettingsPage, TransactionsPage } from './pages';
+import { AppToaster } from './AppToaster';
+import { AppRouter } from './router';
 
 export const App = (): JSX.Element => {
+  const queryClient = new QueryClient();
+
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="transactions" element={<TransactionsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="login" element={<LoginPage />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+      <AppToaster />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
