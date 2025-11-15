@@ -8,6 +8,7 @@ import {
   LoginPage,
   NotFoundPage,
   SettingsPage,
+  SignupPage,
   TransactionsPage,
 } from '../../pages';
 import { ProtectedRoute } from '../ProtectedRoute';
@@ -29,6 +30,7 @@ export const AppRouter = (): JSX.Element => {
         </Route>
         <Route element={<LoginLayout />}>
           <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

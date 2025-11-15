@@ -1,10 +1,10 @@
 import type { JSX } from 'react';
 import { WalletMinimal } from 'lucide-react';
 
-import { LoginForm } from '@/features';
+import { SignupForm } from '@/features';
 import { FieldDescription } from '@/ui';
 
-export const LoginPage = (): JSX.Element => {
+export const SignupPage = (): JSX.Element => {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -18,7 +18,7 @@ export const LoginPage = (): JSX.Element => {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm />
+            <SignupForm />
           </div>
         </div>
       </div>
