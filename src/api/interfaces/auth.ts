@@ -1,13 +1,18 @@
-export interface LoginReqData {
+export interface RegisterReqData {
   email: string;
   password: string;
+  username: string;
 }
 
-export interface LoginResData {
+export interface RegisterResData {
   error?: string;
   success: boolean;
   token?: string;
 }
+
+export type LoginReqData = Pick<RegisterReqData, 'email' | 'password'>;
+
+export type LoginResData = RegisterResData;
 
 export interface UserProfile {
   _id: string;

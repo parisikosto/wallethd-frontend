@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
 import { Home, LogOut, Receipt, Settings } from 'lucide-react';
 
+import { useLogout } from '@/features';
 import {
   Sidebar,
   SidebarContent,
@@ -32,6 +33,8 @@ const menuItems = [
 ];
 
 export const AppSidebar = (): JSX.Element => {
+  const { isPendingLogout, logout } = useLogout();
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -56,7 +59,10 @@ export const AppSidebar = (): JSX.Element => {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
+            <SidebarMenuButton
+              onClick={() => logout()}
+              disabled={isPendingLogout}
+            >
               <LogOut />
               <span>Logout</span>
             </SidebarMenuButton>

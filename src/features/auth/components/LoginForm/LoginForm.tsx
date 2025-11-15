@@ -80,7 +80,12 @@ export const LoginForm = ({
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input {...register('email')} type="email" required />
+          <Input
+            {...register('email')}
+            type="email"
+            required
+            disabled={isPendingLogin}
+          />
           {errors.email?.message && (
             <FieldError>{errors.email.message}</FieldError>
           )}
@@ -95,7 +100,12 @@ export const LoginForm = ({
               Forgot your password?
             </a> */}
           </div>
-          <Input {...register('password')} type="password" required />
+          <Input
+            {...register('password')}
+            type="password"
+            required
+            disabled={isPendingLogin}
+          />
           {errors.password?.message && (
             <FieldError>{errors.password.message}</FieldError>
           )}
