@@ -1,8 +1,8 @@
 import type { JSX } from 'react';
-import { type Icon, IconCirclePlusFilled, IconMail } from '@tabler/icons-react';
+import { IconCirclePlusFilled } from '@tabler/icons-react';
+import { IconDashboard, IconListDetails } from '@tabler/icons-react';
 
 import {
-  Button,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
@@ -10,15 +10,20 @@ import {
   SidebarMenuItem,
 } from '@/ui';
 
-export const NavMain = ({
-  items,
-}: {
-  items: {
-    icon?: Icon;
-    title: string;
-    url: string;
-  }[];
-}): JSX.Element => {
+const items = [
+  {
+    title: 'Dashboard',
+    url: '/',
+    icon: IconDashboard,
+  },
+  {
+    title: 'Transactions',
+    url: '/transactions',
+    icon: IconListDetails,
+  },
+];
+
+export const NavMain = (): JSX.Element => {
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -31,14 +36,6 @@ export const NavMain = ({
               <IconCirclePlusFilled />
               <span>Quick Create</span>
             </SidebarMenuButton>
-            <Button
-              size="icon"
-              className="size-8 group-data-[collapsible=icon]:opacity-0"
-              variant="outline"
-            >
-              <IconMail />
-              <span className="sr-only">Inbox</span>
-            </Button>
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>

@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, JSX } from 'react';
-import { type Icon } from '@tabler/icons-react';
+import { IconSearch, IconSettings } from '@tabler/icons-react';
 
 import {
   SidebarGroup,
@@ -9,16 +9,22 @@ import {
   SidebarMenuItem,
 } from '@/ui';
 
+const items = [
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: IconSettings,
+  },
+  {
+    title: 'Search',
+    url: '#',
+    icon: IconSearch,
+  },
+];
+
 export const NavSecondary = ({
-  items,
   ...props
-}: {
-  items: {
-    icon: Icon;
-    title: string;
-    url: string;
-  }[];
-} & ComponentPropsWithoutRef<typeof SidebarGroup>): JSX.Element => {
+}: ComponentPropsWithoutRef<typeof SidebarGroup>): JSX.Element => {
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
