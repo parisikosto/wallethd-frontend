@@ -28,11 +28,21 @@ export const NavUser = (): JSX.Element | null => {
   const { userProfile } = useUserProfile();
   const { logout } = useLogout();
 
-  const { email, profileImage, username } = userProfile ?? {};
-
   if (!userProfile) {
     return null;
   }
+
+  const { email, firstName, lastName, profileImage, username } = userProfile;
+
+  const firstNameInitial = firstName
+    ? `${firstName?.charAt(0).toUpperCase()}`
+    : `${username?.charAt(0).toUpperCase()}`;
+
+  const lastNameInitial = lastName
+    ? `${lastName?.charAt(0).toUpperCase()}`
+    : '';
+
+  const displayName = `${firstNameInitial}${lastNameInitial}`;
 
   return (
     <SidebarMenu>
@@ -45,7 +55,9 @@ export const NavUser = (): JSX.Element | null => {
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
                 <AvatarImage src={profileImage} alt={username} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {displayName}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{username}</span>
@@ -66,7 +78,9 @@ export const NavUser = (): JSX.Element | null => {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={profileImage} alt={username} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {displayName}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{username}</span>
