@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginLayout, MainLayout } from '@/layouts';
 
 import {
-  HomePage,
+  DashboardPage,
   LoginPage,
   NotFoundPage,
   SettingsPage,
@@ -24,7 +24,7 @@ export const AppRouter = (): JSX.Element => {
             </ProtectedRoute>
           }
         >
-          <Route index element={<HomePage />} />
+          <Route index element={<DashboardPage />} />
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>

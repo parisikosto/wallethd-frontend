@@ -1,5 +1,6 @@
 export * from './AppSidebar';
 export * from './ChartAreaInteractive';
+export * from './DataTable';
 export * from './NavDocuments';
 export * from './NavMain';
 export * from './NavSecondary';
