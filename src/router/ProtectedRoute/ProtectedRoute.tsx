@@ -2,8 +2,9 @@ import type { JSX, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { SpinnerCustom } from '@/components';
+
 import { useUserProfile } from '../../features';
-import { Spinner } from '../../ui';
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -23,12 +24,7 @@ export const ProtectedRoute = ({
   }, [isAuthenticated, isPendingUserProfile, navigate]);
 
   if (isPendingUserProfile) {
-    return (
-      <div>
-        ProtectedRouteFullPage
-        <Spinner />
-      </div>
-    );
+    return <SpinnerCustom />;
   }
 
   if (isAuthenticated) {

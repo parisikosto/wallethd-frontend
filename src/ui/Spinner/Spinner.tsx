@@ -1,5 +1,5 @@
 import type { ComponentProps, JSX } from 'react';
-import { Loader2Icon } from 'lucide-react';
+import { LoaderIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -8,7 +8,7 @@ export const Spinner = ({
   ...props
 }: ComponentProps<'svg'>): JSX.Element => {
   return (
-    <Loader2Icon
+    <LoaderIcon
       role="status"
       aria-label="Loading"
       className={cn('size-4 animate-spin', className)}

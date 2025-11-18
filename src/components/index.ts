@@ -7,3 +7,4 @@ export * from './NavSecondary';
 export * from './NavUser';
 export * from './SectionCards';
 export * from './SiteHeader';
+export * from './SpinnerCustom';
