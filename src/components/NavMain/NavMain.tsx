@@ -1,7 +1,8 @@
 import type { JSX } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
-import { IconDashboard, IconListDetails } from '@tabler/icons-react';
 
+import { navigationItems } from '@/constants';
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -10,20 +11,9 @@ import {
   SidebarMenuItem,
 } from '@/ui';
 
-const items = [
-  {
-    title: 'Dashboard',
-    url: '/',
-    icon: IconDashboard,
-  },
-  {
-    title: 'Transactions',
-    url: '/transactions',
-    icon: IconListDetails,
-  },
-];
-
 export const NavMain = (): JSX.Element => {
+  const location = useLocation();
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -39,14 +29,27 @@ export const NavMain = (): JSX.Element => {
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {navigationItems.map((item) => {
+            const isActive = location.pathname === item.url;
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive}
+                  className={
+                    isActive
+                      ? 'border-2 border-gray-300 !font-normal'
+                      : 'border-2 border-transparent !font-normal'
+                  }
+                >
+                  <Link to={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

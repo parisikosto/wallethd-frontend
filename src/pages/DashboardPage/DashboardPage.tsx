@@ -1,14 +1,7 @@
 import type { JSX } from 'react';
 
-import { DataTable, SectionCards } from '@/components';
-
-import data from './data.json';
+import { SectionCards } from '@/components';
 
 export const DashboardPage = (): JSX.Element => {
-  return (
-    <>
-      <SectionCards />
-      <DataTable data={data} />
-    </>
-  );
+  return <SectionCards />;
 };

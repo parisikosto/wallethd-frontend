@@ -54,7 +54,7 @@ export const NavUser = (): JSX.Element | null => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={profileImage} alt={username} />
+                <AvatarImage src={profileImage} alt={`Avatar of ${username}`} />
                 <AvatarFallback className="rounded-lg">
                   {displayName}
                 </AvatarFallback>

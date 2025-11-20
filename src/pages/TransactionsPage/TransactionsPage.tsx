@@ -1,5 +1,11 @@
 import type { JSX } from 'react';
 
+import { TransactionsDataTable } from '@/features';
+
 export const TransactionsPage = (): JSX.Element => {
-  return <div>TransactionsPage</div>;
+  return (
+    <>
+      <TransactionsDataTable showFilters />
+    </>
+  );
 };
