@@ -27,3 +27,12 @@ export interface Transaction {
   updatedAt: string;
   website?: string;
 }
+
+export interface TransactionSummary {
+  completedExpenses: number;
+  completedIncome: number;
+  pendingExpenses: number;
+  pendingIncome: number;
+  totalExpenses: number;
+  totalIncome: number;
+}
