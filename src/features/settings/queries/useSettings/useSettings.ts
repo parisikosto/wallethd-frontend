@@ -16,6 +16,8 @@ export const useSettings = (): {
   } = useQuery({
     queryFn: () => getSettingsApi(),
     queryKey: [settingsQueryKey],
+    staleTime: Infinity,
+    retry: false,
   });
 
   return {

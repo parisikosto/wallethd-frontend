@@ -1,13 +1,13 @@
 import type { JSX } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { navigationItems } from '@/constants';
+import { navigationItems, secondaryNavigationItems } from '@/constants';
 import { Separator, SidebarTrigger } from '@/ui';
 
 export const SiteHeader = (): JSX.Element => {
   const location = useLocation();
 
-  const currentPage = navigationItems.find(
+  const currentPage = [...navigationItems, ...secondaryNavigationItems].find(
     (item) => item.url === location.pathname,
   );
 

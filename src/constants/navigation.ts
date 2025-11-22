@@ -1,4 +1,8 @@
-import { IconDashboard, IconListDetails } from '@tabler/icons-react';
+import {
+  IconDashboard,
+  IconListDetails,
+  IconSettings,
+} from '@tabler/icons-react';
 
 export const navigationItems = [
   {
@@ -10,5 +14,13 @@ export const navigationItems = [
     title: 'Transactions',
     url: '/transactions',
     icon: IconListDetails,
+  },
+];
+
+export const secondaryNavigationItems = [
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: IconSettings,
   },
 ];
