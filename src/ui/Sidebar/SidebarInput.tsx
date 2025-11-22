@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 
-import { cn } from '@/lib/utils';
 import { Input } from '@/ui/Input';
+import { cn } from '@/utils';
 
 export const SidebarInput = ({
   className,

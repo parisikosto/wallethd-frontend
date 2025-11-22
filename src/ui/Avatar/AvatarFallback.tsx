@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { Fallback } from '@radix-ui/react-avatar';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const AvatarFallback = ({
   className,

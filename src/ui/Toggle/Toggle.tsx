@@ -2,7 +2,7 @@ import type { ComponentProps, JSX } from 'react';
 import { Root } from '@radix-ui/react-toggle';
 import type { VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 import { toggleVariants } from './toggleVariants';
 

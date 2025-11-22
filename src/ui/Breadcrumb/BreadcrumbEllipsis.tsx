@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { MoreHorizontal } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const BreadcrumbEllipsis = ({
   className,

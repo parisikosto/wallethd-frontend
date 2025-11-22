@@ -2,8 +2,8 @@ import type { ComponentProps, CSSProperties, JSX } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useIsMobile } from '@/hooks';
-import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/ui';
+import { cn } from '@/utils';
 
 import { SidebarContext, type SidebarContextProps } from './SidebarContext';
 

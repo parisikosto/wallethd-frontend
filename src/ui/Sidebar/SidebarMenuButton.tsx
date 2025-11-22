@@ -2,8 +2,8 @@ import type { ComponentProps, JSX } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import type { VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui/Tooltip';
+import { cn } from '@/utils';
 
 import { useSidebar } from './contexts';
 import { sidebarMenuButtonVariants } from './sidebarMenuButtonVariants';

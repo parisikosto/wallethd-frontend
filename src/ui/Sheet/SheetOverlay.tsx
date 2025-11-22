@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { Overlay } from '@radix-ui/react-dialog';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const SheetOverlay = ({
   className,

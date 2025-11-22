@@ -2,7 +2,7 @@ import type { ComponentProps, JSX } from 'react';
 import { CheckboxItem, ItemIndicator } from '@radix-ui/react-dropdown-menu';
 import { CheckIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const DropdownMenuCheckboxItem = ({
   checked,

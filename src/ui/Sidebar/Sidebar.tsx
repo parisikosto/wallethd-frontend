@@ -1,6 +1,5 @@
 import type { ComponentProps, CSSProperties, JSX } from 'react';
 
-import { cn } from '@/lib/utils';
 import {
   Sheet,
   SheetContent,
@@ -8,6 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/ui/Sheet';
+import { cn } from '@/utils';
 
 import { useSidebar } from './contexts';
 

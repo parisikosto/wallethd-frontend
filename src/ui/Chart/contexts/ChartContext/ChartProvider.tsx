@@ -1,7 +1,7 @@
 import { type ComponentProps, type JSX, useId } from 'react';
 import { ResponsiveContainer } from 'recharts';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 import { ChartStyle } from '../../ChartStyle';
 

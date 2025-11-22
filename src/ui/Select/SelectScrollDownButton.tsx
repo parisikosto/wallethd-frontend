@@ -2,7 +2,7 @@ import type { ComponentProps, JSX } from 'react';
 import { ScrollDownButton } from '@radix-ui/react-select';
 import { ChevronDownIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const SelectScrollDownButton = ({
   className,

@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { Separator } from '@radix-ui/react-select';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const SelectSeparator = ({
   className,

@@ -1,6 +1,6 @@
 import { type ComponentProps, type JSX, useMemo } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const FieldError = ({
   children,

@@ -2,7 +2,7 @@ import type { ComponentProps, JSX } from 'react';
 import { ItemIndicator, RadioItem } from '@radix-ui/react-dropdown-menu';
 import { CircleIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const DropdownMenuRadioItem = ({
   children,

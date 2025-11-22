@@ -2,7 +2,7 @@ import type { ComponentProps, JSX } from 'react';
 import { Item, ItemIndicator, ItemText } from '@radix-ui/react-select';
 import { CheckIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const SelectItem = ({
   children,

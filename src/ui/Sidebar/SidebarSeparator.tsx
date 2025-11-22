@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 
-import { cn } from '@/lib/utils';
 import { Separator } from '@/ui/Separator';
+import { cn } from '@/utils';
 
 export const SidebarSeparator = ({
   className,

@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { Trigger } from '@radix-ui/react-tabs';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const TabsTrigger = ({
   className,

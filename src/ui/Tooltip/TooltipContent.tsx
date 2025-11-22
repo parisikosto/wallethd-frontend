@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import { Arrow, Content, Portal } from '@radix-ui/react-tooltip';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 export const TooltipContent = ({
   children,

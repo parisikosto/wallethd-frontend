@@ -1,7 +1,7 @@
 import { type ComponentProps, type JSX, useMemo } from 'react';
 import type { Tooltip } from 'recharts';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 import { useChart } from './contexts';
 import { getPayloadConfigFromPayload } from './utils';

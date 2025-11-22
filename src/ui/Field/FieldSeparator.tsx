@@ -1,6 +1,6 @@
 import type { ComponentProps, JSX, ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 import { Separator } from '../Separator';
 

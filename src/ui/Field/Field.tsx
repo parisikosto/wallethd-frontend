@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'react';
 import type { VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 import { fieldVariants } from './fieldVariants';
 

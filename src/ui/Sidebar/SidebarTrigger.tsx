@@ -1,8 +1,8 @@
 import type { ComponentProps, JSX } from 'react';
 import { PanelLeftIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/ui/Button';
+import { cn } from '@/utils';
 
 import { useSidebar } from './contexts';
 
