@@ -3,6 +3,8 @@ import { z } from 'zod';
 export const schema = z.object({
   id: z.string(),
   note: z.string(),
+  category: z.string(),
+  categoryParent: z.string().nullable(),
   type: z.string(),
   amount: z.number(),
   status: z.string(),

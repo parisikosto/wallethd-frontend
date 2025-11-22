@@ -22,9 +22,21 @@ export const TransactionsDataTable = ({
   }
 
   const data = transactions.map(
-    ({ _id: id, amount, date, dueDate, facility, note, status, type }) => ({
+    ({
+      _id: id,
+      amount,
+      category,
+      date,
+      dueDate,
+      facility,
+      note,
+      status,
+      type,
+    }) => ({
       id,
       amount,
+      category: category?.name || '-',
+      categoryParent: category?.parent?.name || null,
       date,
       dueDate: dueDate || '-',
       facility: facility || '-',

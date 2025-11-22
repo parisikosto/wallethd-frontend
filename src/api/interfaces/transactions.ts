@@ -1,3 +1,14 @@
+export interface TransactionAccount {
+  _id: string;
+  name: string;
+}
+
+export interface TransactionCategory {
+  _id: string;
+  name: string;
+  parent?: TransactionCategory;
+}
+
 export enum TransactionStatus {
   Completed = 'completed',
   Pending = 'pending',
@@ -10,8 +21,10 @@ export enum TransactionType {
 
 export interface Transaction {
   _id: string;
+  account?: TransactionAccount;
   amount: number;
   attachments: string[];
+  category?: TransactionCategory;
   createdAt: string;
   date: string;
   description?: string;

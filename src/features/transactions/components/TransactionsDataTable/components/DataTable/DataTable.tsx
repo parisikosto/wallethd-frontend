@@ -125,6 +125,23 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     minSize: 200,
   },
   {
+    accessorKey: 'category',
+    header: 'Category',
+    cell: ({ row }) => {
+      const hasParent = row.original.categoryParent;
+      return (
+        <div className="flex flex-col gap-0.5">
+          {hasParent && (
+            <span className="text-muted-foreground text-xs">
+              {row.original.categoryParent}
+            </span>
+          )}
+          <span className="font-medium">{row.original.category}</span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: 'type',
     header: 'Type',
     cell: ({ row }) => {
@@ -238,6 +255,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
     >
       {row.getVisibleCells().map((cell) => {
         const isNoteColumn = cell.column.id === 'note';
+        const isCategoryColumn = cell.column.id === 'category';
         const isTypeColumn = cell.column.id === 'type';
         const isStatusColumn = cell.column.id === 'status';
         const isAmountColumn = cell.column.id === 'amount';
@@ -246,6 +264,8 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
         let style: React.CSSProperties = { width: 'auto' };
         if (isNoteColumn) {
           style = { width: '100%' };
+        } else if (isCategoryColumn) {
+          style = { minWidth: '180px', width: 'auto' };
         } else if (isTypeColumn) {
           style = { minWidth: '120px', width: 'auto' };
         } else if (isStatusColumn) {
@@ -569,6 +589,7 @@ export function DataTable({
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       const isNoteColumn = header.column.id === 'note';
+                      const isCategoryColumn = header.column.id === 'category';
                       const isTypeColumn = header.column.id === 'type';
                       const isStatusColumn = header.column.id === 'status';
                       const isAmountColumn = header.column.id === 'amount';
@@ -577,6 +598,8 @@ export function DataTable({
                       let style: React.CSSProperties = { width: 'auto' };
                       if (isNoteColumn) {
                         style = { width: '100%' };
+                      } else if (isCategoryColumn) {
+                        style = { minWidth: '180px', width: 'auto' };
                       } else if (isTypeColumn) {
                         style = { minWidth: '120px', width: 'auto' };
                       } else if (isStatusColumn) {
