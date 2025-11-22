@@ -88,6 +88,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/ui';
+import { formatCurrency } from '@/utils';
 
 import type { schema } from './constants';
 
@@ -191,13 +192,11 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'amount',
     header: () => <div className="text-center">Amount</div>,
-    cell: ({ row }) => {
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'EUR',
-      }).format(row.original.amountDecimal);
-      return <div className="text-center font-medium">{formatted}</div>;
-    },
+    cell: ({ row }) => (
+      <div className="text-center font-medium">
+        {formatCurrency(row.original.amountDecimal)}
+      </div>
+    ),
   },
   {
     accessorKey: 'date',

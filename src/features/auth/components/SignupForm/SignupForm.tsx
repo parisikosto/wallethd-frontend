@@ -1,6 +1,5 @@
 import type { ComponentProps, JSX } from 'react';
 
-import { cn } from '@/lib/utils';
 import {
   Button,
   Field,
@@ -9,6 +8,7 @@ import {
   FieldLabel,
   Input,
 } from '@/ui';
+import { cn } from '@/utils';
 
 export const SignupForm = ({
   className,

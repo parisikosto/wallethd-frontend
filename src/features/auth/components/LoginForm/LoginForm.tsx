@@ -3,7 +3,6 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { cn } from '@/lib/utils';
 import {
   Button,
   Field,
@@ -14,6 +13,7 @@ import {
   Input,
   Spinner,
 } from '@/ui';
+import { cn } from '@/utils';
 
 import { useLogin } from '../../queries';
 

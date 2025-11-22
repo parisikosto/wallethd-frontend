@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import type { Settings } from '@/api';
-import { cn } from '@/lib/utils';
 import {
   Button,
   Card,
@@ -25,6 +24,7 @@ import {
   SelectValue,
   Spinner,
 } from '@/ui';
+import { cn } from '@/utils';
 
 import { useUpdateSettings } from '../../queries';
 
