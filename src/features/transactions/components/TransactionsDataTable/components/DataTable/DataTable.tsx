@@ -142,6 +142,18 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     },
   },
   {
+    accessorKey: 'facility',
+    header: 'Facility',
+    cell: ({ row }) => (
+      <Badge
+        variant="outline"
+        className="border-primary/30 bg-primary/5 text-foreground font-normal"
+      >
+        {row.original.facility || '-'}
+      </Badge>
+    ),
+  },
+  {
     accessorKey: 'type',
     header: 'Type',
     cell: ({ row }) => {
@@ -179,19 +191,13 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'amount',
     header: () => <div className="text-center">Amount</div>,
-    cell: ({ row }) => <div className="text-center">{row.original.amount}</div>,
-  },
-  {
-    accessorKey: 'facility',
-    header: 'Facility',
-    cell: ({ row }) => (
-      <Badge
-        variant="outline"
-        className="border-primary/30 bg-primary/5 text-foreground font-normal"
-      >
-        {row.original.facility || '-'}
-      </Badge>
-    ),
+    cell: ({ row }) => {
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(row.original.amountDecimal);
+      return <div className="text-center font-medium">{formatted}</div>;
+    },
   },
   {
     accessorKey: 'date',
@@ -256,6 +262,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
       {row.getVisibleCells().map((cell) => {
         const isNoteColumn = cell.column.id === 'note';
         const isCategoryColumn = cell.column.id === 'category';
+        const isFacilityColumn = cell.column.id === 'facility';
         const isTypeColumn = cell.column.id === 'type';
         const isStatusColumn = cell.column.id === 'status';
         const isAmountColumn = cell.column.id === 'amount';
@@ -265,13 +272,15 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
         if (isNoteColumn) {
           style = { width: '100%' };
         } else if (isCategoryColumn) {
-          style = { minWidth: '180px', width: 'auto' };
+          style = { minWidth: '160px', width: 'auto' };
+        } else if (isFacilityColumn) {
+          style = { minWidth: '160px', width: 'auto' };
         } else if (isTypeColumn) {
           style = { minWidth: '120px', width: 'auto' };
         } else if (isStatusColumn) {
           style = { minWidth: '120px', width: 'auto' };
         } else if (isAmountColumn) {
-          style = { minWidth: '80px', width: 'auto' };
+          style = { minWidth: '100px', width: 'auto' };
         } else if (isDateColumn) {
           style = { minWidth: '120px', width: 'auto' };
         }
@@ -590,6 +599,7 @@ export function DataTable({
                     {headerGroup.headers.map((header) => {
                       const isNoteColumn = header.column.id === 'note';
                       const isCategoryColumn = header.column.id === 'category';
+                      const isFacilityColumn = header.column.id === 'facility';
                       const isTypeColumn = header.column.id === 'type';
                       const isStatusColumn = header.column.id === 'status';
                       const isAmountColumn = header.column.id === 'amount';
@@ -599,13 +609,15 @@ export function DataTable({
                       if (isNoteColumn) {
                         style = { width: '100%' };
                       } else if (isCategoryColumn) {
-                        style = { minWidth: '180px', width: 'auto' };
+                        style = { minWidth: '160px', width: 'auto' };
+                      } else if (isFacilityColumn) {
+                        style = { minWidth: '160px', width: 'auto' };
                       } else if (isTypeColumn) {
                         style = { minWidth: '120px', width: 'auto' };
                       } else if (isStatusColumn) {
                         style = { minWidth: '120px', width: 'auto' };
                       } else if (isAmountColumn) {
-                        style = { minWidth: '80px', width: 'auto' };
+                        style = { minWidth: '100px', width: 'auto' };
                       } else if (isDateColumn) {
                         style = { minWidth: '120px', width: 'auto' };
                       }

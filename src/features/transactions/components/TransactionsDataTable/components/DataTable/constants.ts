@@ -7,6 +7,7 @@ export const schema = z.object({
   categoryParent: z.string().nullable(),
   type: z.string(),
   amount: z.number(),
+  amountDecimal: z.number(),
   status: z.string(),
   date: z.string(),
   dueDate: z.string(),

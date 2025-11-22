@@ -25,6 +25,7 @@ export const TransactionsDataTable = ({
     ({
       _id: id,
       amount,
+      amountDecimal,
       category,
       date,
       dueDate,
@@ -35,6 +36,7 @@ export const TransactionsDataTable = ({
     }) => ({
       id,
       amount,
+      amountDecimal,
       category: category?.name || '-',
       categoryParent: category?.parent?.name || null,
       date,

@@ -23,6 +23,7 @@ export interface Transaction {
   _id: string;
   account?: TransactionAccount;
   amount: number;
+  amountDecimal: number;
   attachments: string[];
   category?: TransactionCategory;
   createdAt: string;
