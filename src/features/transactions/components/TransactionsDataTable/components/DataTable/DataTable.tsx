@@ -48,6 +48,7 @@ import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { z } from 'zod';
 
 import { TransactionStatus } from '@/api';
+import { MONTHS } from '@/constants';
 import { useIsMobile } from '@/hooks';
 import {
   Badge,
@@ -91,21 +92,6 @@ import {
 import { formatCurrency } from '@/utils';
 
 import type { schema } from './constants';
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-] as const;
 
 const ALL_MONTHS = 'All';
 const ALL_YEARS = 'All';
