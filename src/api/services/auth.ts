@@ -1,5 +1,6 @@
+import { clearAuthData, setAuthToken } from '@/utils';
+
 import { axiosInstance } from '../axiosInstance';
-import { LOCAL_STORAGE_TOKEN_NAME } from '../config';
 import type {
   ApiGenericResponse,
   LoginReqData,
@@ -24,8 +25,7 @@ export const registerApi = async (
   const { token } = res.data;
 
   if (token) {
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, token);
-    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    setAuthToken(token);
   }
 
   return res.data;
@@ -44,8 +44,7 @@ export const loginApi = async (
   const { token } = res.data;
 
   if (token) {
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, token);
-    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    setAuthToken(token);
   }
 
   return res.data;
@@ -70,10 +69,6 @@ export const getUserProfileApi = async (): Promise<
  */
 export const logoutApi = async (): Promise<ApiGenericResponse<object>> => {
   const res = await axiosInstance.get(`${authUrl}/logout`);
-
-  // TODO: isolate local storage logic to a separate function
-  localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
-  delete axiosInstance.defaults.headers.common['Authorization'];
-
+  clearAuthData();
   return res.data;
 };

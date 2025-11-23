@@ -2,9 +2,12 @@ import type { CSSProperties, JSX } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { AppSidebar, SiteHeader } from '@/components';
+import { useSettings } from '@/features';
 import { SidebarInset, SidebarProvider } from '@/ui';
 
 export const MainLayout = (): JSX.Element => {
+  useSettings();
+
   return (
     <SidebarProvider
       style={

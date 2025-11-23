@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { clearAuthData } from '@/utils';
+
 import { API_BASE_URL, LOCAL_STORAGE_TOKEN_NAME } from './config';
 
 export const axiosInstance = axios.create({
@@ -20,8 +22,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
-      delete axiosInstance.defaults.headers.common['Authorization'];
+      clearAuthData();
     }
     return Promise.reject(error);
   },
