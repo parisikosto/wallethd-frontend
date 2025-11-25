@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { CSSProperties, JSX } from 'react';
 import { useEffect, useId, useMemo, useState } from 'react';
 import {
   closestCenter,
@@ -253,7 +253,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
         const isAmountColumn = cell.column.id === 'amount';
         const isDateColumn = cell.column.id === 'date';
 
-        let style: React.CSSProperties = { width: 'auto' };
+        let style: CSSProperties = { width: 'auto' };
         if (isNoteColumn) {
           style = { width: '100%' };
         } else if (isCategoryColumn) {
@@ -590,7 +590,7 @@ export function DataTable({
                       const isAmountColumn = header.column.id === 'amount';
                       const isDateColumn = header.column.id === 'date';
 
-                      let style: React.CSSProperties = { width: 'auto' };
+                      let style: CSSProperties = { width: 'auto' };
                       if (isNoteColumn) {
                         style = { width: '100%' };
                       } else if (isCategoryColumn) {

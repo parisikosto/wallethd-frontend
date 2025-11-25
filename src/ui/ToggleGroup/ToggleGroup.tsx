@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { CSSProperties, JSX } from 'react';
 import { Root } from '@radix-ui/react-toggle-group';
 import type { VariantProps } from 'class-variance-authority';
 
@@ -24,7 +24,7 @@ export const ToggleGroup = ({
       data-variant={variant}
       data-size={size}
       data-spacing={spacing}
-      style={{ '--gap': spacing } as React.CSSProperties}
+      style={{ '--gap': spacing } as CSSProperties}
       className={cn(
         'group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))] rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs',
         className,

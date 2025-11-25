@@ -1,4 +1,9 @@
-import { type ComponentProps, type JSX, useMemo } from 'react';
+import {
+  type ComponentProps,
+  type CSSProperties,
+  type JSX,
+  useMemo,
+} from 'react';
 import type { Tooltip } from 'recharts';
 
 import { cn } from '@/utils';
@@ -119,7 +124,7 @@ export const ChartTooltipContent = ({
                             {
                               '--color-bg': indicatorColor,
                               '--color-border': indicatorColor,
-                            } as React.CSSProperties
+                            } as CSSProperties
                           }
                         />
                       )
