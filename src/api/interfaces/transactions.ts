@@ -50,3 +50,16 @@ export interface TransactionSummary {
   totalExpenses: number;
   totalIncome: number;
 }
+
+export interface TransactionsMonthlyData {
+  actualSavings: number;
+  budgetForNecessities: number;
+  expectedSavings: number;
+  expenses: Transaction[];
+  incomes: Transaction[];
+  isOnTrack: boolean;
+  isOverBudget: boolean;
+  totalExpenses: number;
+  totalIncome: number;
+  wantsBudget: number;
+}
