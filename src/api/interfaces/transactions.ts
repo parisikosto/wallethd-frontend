@@ -21,7 +21,7 @@ export enum TransactionType {
 
 export interface Transaction {
   _id: string;
-  account?: TransactionAccount;
+  account: TransactionAccount;
   amount: number;
   amountDecimal: number;
   attachments: string[];
@@ -33,6 +33,7 @@ export interface Transaction {
   facility?: string;
   isInstallment: boolean;
   isReadyToDeduct: boolean;
+  issueDate?: string;
   note: string;
   receiptTaken: boolean;
   reminderDate?: string;
@@ -74,6 +75,7 @@ export interface CreateTransactionDto {
   facility?: string;
   isInstallment: boolean;
   isReadyToDeduct: boolean;
+  issueDate?: string;
   note: string;
   receiptTaken: boolean;
   reminderDate?: string;

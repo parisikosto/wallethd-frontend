@@ -43,6 +43,7 @@ const defaultValues: CreateTransactionFormSchemaType = {
   category: '',
   amount: 0,
   date: new Date().toISOString().split('T')[0],
+  issueDate: '',
   dueDate: '',
   reminderDate: '',
   description: '',
@@ -69,6 +70,7 @@ const validationSchema = z.object({
     .positive({ message: 'Amount must be positive' })
     .min(0.01, { message: 'Amount must be at least 0.01' }),
   date: z.string().min(1, { message: 'Date is required' }),
+  issueDate: z.string(),
   dueDate: z.string(),
   reminderDate: z.string(),
   description: z
@@ -252,6 +254,19 @@ export const CreateTransactionForm = (): JSX.Element => {
                 />
                 {errors.date?.message && (
                   <FieldError>{errors.date.message}</FieldError>
+                )}
+              </Field>
+
+              {/* Issue Date */}
+              <Field>
+                <FieldLabel htmlFor="issueDate">Issue Date</FieldLabel>
+                <Input
+                  {...register('issueDate')}
+                  type="date"
+                  disabled={isPendingCreate}
+                />
+                {errors.issueDate?.message && (
+                  <FieldError>{errors.issueDate.message}</FieldError>
                 )}
               </Field>
 
