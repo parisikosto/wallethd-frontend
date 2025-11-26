@@ -1,3 +1,4 @@
+export * from './CreateTransactionPage';
 export * from './DashboardPage';
 export * from './LoginPage';
 export * from './NotFoundPage';

@@ -1,5 +1,6 @@
 import type { CSSProperties, JSX } from 'react';
 import { useEffect, useId, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   closestCenter,
   DndContext,
@@ -18,14 +19,12 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import {
-  IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
   IconChevronsLeft,
   IconChevronsRight,
   IconCircleCheckFilled,
   IconDotsVertical,
-  IconLayoutColumns,
   IconLoader,
   IconTrendingUp,
 } from '@tabler/icons-react';
@@ -66,7 +65,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
@@ -531,8 +529,15 @@ export function DataTable({
         </>
       )}
 
-      {/* Customize Columns */}
+      {/* Table Actions */}
       <div className="flex items-center justify-end gap-2 px-4 lg:px-6">
+        <Button asChild>
+          <Link to="/transactions/new">Add Transaction</Link>
+        </Button>
+      </div>
+
+      {/* Customize Columns */}
+      {/* <div className="flex items-center justify-end gap-2 px-4 lg:px-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm">
@@ -566,7 +571,7 @@ export function DataTable({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
+      </div> */}
 
       {/* Transactions Table */}
       <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginLayout, MainLayout } from '@/layouts';
 
 import {
+  CreateTransactionPage,
   DashboardPage,
   LoginPage,
   NotFoundPage,
@@ -26,6 +27,7 @@ export const AppRouter = (): JSX.Element => {
         >
           <Route index element={<DashboardPage />} />
           <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="transactions/new" element={<CreateTransactionPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
         <Route element={<LoginLayout />}>
