@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTransactionsSummaryApi, type TransactionSummary } from '@/api';
 
+export const useTransactionsSummaryQueryKey = ['transactions', 'summary'];
+
 export const useTransactionsSummary = (): {
   isErrorTransactionsSummary: boolean;
   isFetchingTransactionsSummary: boolean;
@@ -13,7 +15,7 @@ export const useTransactionsSummary = (): {
     isFetching: isFetchingTransactionsSummary,
   } = useQuery({
     queryFn: () => getTransactionsSummaryApi(),
-    queryKey: ['transactions', 'summary'],
+    queryKey: useTransactionsSummaryQueryKey,
   });
 
   return {

@@ -1,6 +1,7 @@
 import { axiosInstance } from '../axiosInstance';
 import type {
   ApiGenericResponse,
+  CreateTransactionDto,
   Transaction,
   TransactionsMonthlyData,
   TransactionSummary,
@@ -42,5 +43,17 @@ export const getTransactionsSummaryApi = async (): Promise<
   ApiGenericResponse<TransactionSummary>
 > => {
   const res = await axiosInstance.get(`${transactionsUrl}/summary`);
+  return res.data;
+};
+
+/**
+ * @desc    Create new transaction
+ * @route   POST /v1/transactions
+ * @access  Private
+ */
+export const createTransactionApi = async (
+  data: CreateTransactionDto,
+): Promise<ApiGenericResponse<Transaction>> => {
+  const res = await axiosInstance.post(`${transactionsUrl}`, data);
   return res.data;
 };

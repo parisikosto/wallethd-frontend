@@ -63,3 +63,21 @@ export interface TransactionsMonthlyData {
   totalIncome: number;
   wantsBudget: number;
 }
+
+export interface CreateTransactionDto {
+  account: string;
+  amount: number;
+  category: string;
+  date: string;
+  description?: string;
+  dueDate?: string;
+  facility?: string;
+  isInstallment: boolean;
+  isReadyToDeduct: boolean;
+  note: string;
+  receiptTaken: boolean;
+  reminderDate?: string;
+  status: TransactionStatus;
+  type: TransactionType;
+  website: string;
+}

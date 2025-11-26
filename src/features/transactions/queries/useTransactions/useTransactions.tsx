@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTransactionsApi, type Transaction } from '@/api';
 
+export const useTransactionsQueryKey = ['transactions'];
+
 export const useTransactions = (): {
   isErrorTransactions: boolean;
   isFetchingTransactions: boolean;
@@ -13,7 +15,7 @@ export const useTransactions = (): {
     isFetching: isFetchingTransactions,
   } = useQuery({
     queryFn: () => getTransactionsApi(),
-    queryKey: ['transactions'],
+    queryKey: useTransactionsQueryKey,
   });
 
   return {
