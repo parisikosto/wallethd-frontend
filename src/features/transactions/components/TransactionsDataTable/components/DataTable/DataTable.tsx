@@ -129,14 +129,20 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'facility',
     header: 'Facility',
-    cell: ({ row }) => (
-      <Badge
-        variant="outline"
-        className="border-primary/30 bg-primary/5 text-foreground font-normal"
-      >
-        {row.original.facility || '-'}
-      </Badge>
-    ),
+    cell: ({ row }) => {
+      const facility = row.original.facility;
+      if (!facility || facility.trim() === '' || facility === '-') {
+        return <span className="text-muted-foreground">-</span>;
+      }
+      return (
+        <Badge
+          variant="outline"
+          className="border-primary/30 bg-primary/5 text-foreground font-normal"
+        >
+          {facility}
+        </Badge>
+      );
+    },
   },
   {
     accessorKey: 'type',
@@ -161,17 +167,36 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.status === TransactionStatus.Completed ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-        ) : (
-          <IconLoader />
-        )}
-        {row.original.status.charAt(0).toUpperCase() +
-          row.original.status.slice(1)}
-      </Badge>
-    ),
+    cell: ({ row }) => {
+      const isCompleted = row.original.status === TransactionStatus.Completed;
+      const isPending = row.original.status === TransactionStatus.Pending;
+      const isCompletedColorClasses =
+        'bg-green-50 text-green-700 border-green-200 dark:bg-green-950/30 dark:text-green-400 dark:border-green-900';
+      const isPendingColorClasses =
+        'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950/30 dark:text-yellow-400 dark:border-yellow-900';
+
+      let colorClasses = 'text-muted-foreground';
+      if (isCompleted) {
+        colorClasses = isCompletedColorClasses;
+      } else if (isPending) {
+        colorClasses = isPendingColorClasses;
+      }
+
+      return (
+        <Badge
+          variant="outline"
+          className={`min-w-[100px] px-1.5 ${colorClasses}`}
+        >
+          {isCompleted ? (
+            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+          ) : (
+            <IconLoader />
+          )}
+          {row.original.status.charAt(0).toUpperCase() +
+            row.original.status.slice(1)}
+        </Badge>
+      );
+    },
   },
   {
     accessorKey: 'amount',
