@@ -14,13 +14,14 @@ import {
 } from '@/ui';
 
 import { useAccounts } from '../../../../../accounts';
-import type { CreateTransactionFormSchemaType } from '../../CreateTransactionForm';
+import type { CreateTransactionFormSchema } from '../../CreateTransactionForm';
+import { FormFieldKey } from '../../interfaces';
 
 export const AccountField = (): JSX.Element => {
   const {
     control,
     formState: { errors },
-  } = useFormContext<CreateTransactionFormSchemaType>();
+  } = useFormContext<CreateTransactionFormSchema>();
 
   const { accounts = [], isErrorAccounts, refetchAccounts } = useAccounts();
 
@@ -28,10 +29,10 @@ export const AccountField = (): JSX.Element => {
 
   return (
     <Field>
-      <FieldLabel htmlFor="account">Account</FieldLabel>
+      <FieldLabel htmlFor={FormFieldKey.Account}>Account</FieldLabel>
       <Controller
         control={control}
-        name="account"
+        name={FormFieldKey.Account}
         render={({ field }) => (
           <Select
             value={field.value}
@@ -53,8 +54,8 @@ export const AccountField = (): JSX.Element => {
           </Select>
         )}
       />
-      {errors.account?.message && (
-        <FieldError>{errors.account.message}</FieldError>
+      {errors[FormFieldKey.Account]?.message && (
+        <FieldError>{errors[FormFieldKey.Account].message}</FieldError>
       )}
       {isErrorAccounts && (
         <FieldError>

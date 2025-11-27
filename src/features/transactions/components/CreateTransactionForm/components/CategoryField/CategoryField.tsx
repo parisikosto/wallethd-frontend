@@ -14,14 +14,15 @@ import {
 } from '@/ui';
 
 import { useCategories } from '../../../../../categories';
-import type { CreateTransactionFormSchemaType } from '../../CreateTransactionForm';
+import type { CreateTransactionFormSchema } from '../../CreateTransactionForm';
+import { FormFieldKey } from '../../interfaces';
 
 export const CategoryField = (): JSX.Element => {
   const {
     control,
     formState: { errors },
     watch,
-  } = useFormContext<CreateTransactionFormSchemaType>();
+  } = useFormContext<CreateTransactionFormSchema>();
 
   const type = watch('type');
 
@@ -39,10 +40,10 @@ export const CategoryField = (): JSX.Element => {
 
   return (
     <Field>
-      <FieldLabel htmlFor="category">Category *</FieldLabel>
+      <FieldLabel htmlFor={FormFieldKey.Category}>Category *</FieldLabel>
       <Controller
         control={control}
-        name="category"
+        name={FormFieldKey.Category}
         render={({ field }) => (
           <Select
             value={field.value}
@@ -64,8 +65,8 @@ export const CategoryField = (): JSX.Element => {
           </Select>
         )}
       />
-      {errors.category?.message && (
-        <FieldError>{errors.category.message}</FieldError>
+      {errors[FormFieldKey.Category]?.message && (
+        <FieldError>{errors[FormFieldKey.Category].message}</FieldError>
       )}
       {isErrorCategories && (
         <FieldError>
