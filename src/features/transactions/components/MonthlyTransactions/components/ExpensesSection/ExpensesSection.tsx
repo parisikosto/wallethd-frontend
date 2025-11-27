@@ -1,5 +1,5 @@
 import { Fragment, type JSX } from 'react';
-import { Info } from 'lucide-react';
+import { Calendar, Info } from 'lucide-react';
 
 import type { Transaction } from '@/api';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui';
@@ -21,6 +21,27 @@ export const ExpensesSection = ({
   const completedExpenses = expenses.filter((t) => t.status === 'completed');
   const pendingExpenses = expenses.filter((t) => t.status === 'pending');
 
+  const getInstallmentIconColor = (transaction: Transaction): string => {
+    if (transaction.status === 'pending') {
+      if (transaction.isReadyToDeduct) {
+        // Blue: pending && isReadyToDeduct
+        return 'text-blue-600 dark:text-blue-400';
+      } else {
+        // Red: pending && !isReadyToDeduct
+        return 'text-red-600 dark:text-red-400';
+      }
+    } else {
+      // completed
+      if (transaction.isReadyToDeduct) {
+        // Green: completed && isReadyToDeduct
+        return 'text-green-600 dark:text-green-400';
+      } else {
+        // Orange: completed && !isReadyToDeduct
+        return 'text-orange-600 dark:text-orange-400';
+      }
+    }
+  };
+
   return (
     <div
       data-section="expenses"
@@ -35,6 +56,20 @@ export const ExpensesSection = ({
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1">
+                      {transaction.isInstallment && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Calendar
+                              className={`size-4 flex-shrink-0 ${getInstallmentIconColor(
+                                transaction,
+                              )}`}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Installment payment</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
                       <p className="text-base font-normal text-foreground truncate">
                         {transaction.note}
                       </p>
@@ -89,6 +124,20 @@ export const ExpensesSection = ({
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1">
+                      {transaction.isInstallment && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Calendar
+                              className={`size-4 flex-shrink-0 ${getInstallmentIconColor(
+                                transaction,
+                              )}`}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Installment payment</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
                       <p className="text-base font-normal text-foreground truncate">
                         {transaction.note}
                       </p>
