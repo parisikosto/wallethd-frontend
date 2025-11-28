@@ -5,6 +5,8 @@ import type { Transaction } from '@/api';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui';
 import { formatCurrency } from '@/utils';
 
+import { EditTransactionRedirectBtn } from '../EditTransactionRedirectBtn';
+
 interface IncomeSectionProps {
   incomes: Transaction[];
   totalIncome: number;
@@ -30,9 +32,7 @@ export const IncomeSection = ({
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1">
-                    <p className="text-base font-normal text-foreground truncate">
-                      {transaction.note}
-                    </p>
+                    <EditTransactionRedirectBtn transaction={transaction} />
                     {transaction.description && (
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -66,9 +66,7 @@ export const IncomeSection = ({
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1">
-                    <p className="text-base font-normal text-foreground truncate">
-                      {transaction.note}
-                    </p>
+                    <EditTransactionRedirectBtn transaction={transaction} />
                     {transaction.description && (
                       <Tooltip>
                         <TooltipTrigger asChild>

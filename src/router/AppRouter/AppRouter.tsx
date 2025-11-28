@@ -6,12 +6,14 @@ import { LoginLayout, MainLayout } from '@/layouts';
 import {
   CreateTransactionPage,
   DashboardPage,
+  EditTransactionPage,
   LoginPage,
   NotFoundPage,
   SettingsPage,
   SignupPage,
   TransactionsPage,
 } from '../../pages';
+import { AppRouterPath } from '../interfaces';
 import { ProtectedRoute } from '../ProtectedRoute';
 
 export const AppRouter = (): JSX.Element => {
@@ -26,15 +28,25 @@ export const AppRouter = (): JSX.Element => {
           }
         >
           <Route index element={<DashboardPage />} />
-          <Route path="transactions" element={<TransactionsPage />} />
-          <Route path="transactions/new" element={<CreateTransactionPage />} />
-          <Route path="settings" element={<SettingsPage />} />
+          <Route
+            path={AppRouterPath.Transactions}
+            element={<TransactionsPage />}
+          />
+          <Route
+            path={AppRouterPath.TransactionsNew}
+            element={<CreateTransactionPage />}
+          />
+          <Route
+            path={AppRouterPath.TransactionsEdit}
+            element={<EditTransactionPage />}
+          />
+          <Route path={AppRouterPath.Settings} element={<SettingsPage />} />
         </Route>
         <Route element={<LoginLayout />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
+          <Route path={AppRouterPath.Login} element={<LoginPage />} />
+          <Route path={AppRouterPath.Signup} element={<SignupPage />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={AppRouterPath.NotFound} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

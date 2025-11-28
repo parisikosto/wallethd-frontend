@@ -5,6 +5,10 @@ import type { Transaction } from '@/api';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui';
 import { formatCurrency, formatDate } from '@/utils';
 
+import { EditTransactionRedirectBtn } from '../EditTransactionRedirectBtn';
+
+import { getInstallmentIconColor } from './utils';
+
 interface ExpensesSectionProps {
   budgetForNecessities: number;
   expenses: Transaction[];
@@ -20,27 +24,6 @@ export const ExpensesSection = ({
 }: ExpensesSectionProps): JSX.Element => {
   const completedExpenses = expenses.filter((t) => t.status === 'completed');
   const pendingExpenses = expenses.filter((t) => t.status === 'pending');
-
-  const getInstallmentIconColor = (transaction: Transaction): string => {
-    if (transaction.status === 'pending') {
-      if (transaction.isReadyToDeduct) {
-        // Blue: pending && isReadyToDeduct
-        return 'text-blue-600 dark:text-blue-400';
-      } else {
-        // Red: pending && !isReadyToDeduct
-        return 'text-red-600 dark:text-red-400';
-      }
-    } else {
-      // completed
-      if (transaction.isReadyToDeduct) {
-        // Green: completed && isReadyToDeduct
-        return 'text-green-600 dark:text-green-400';
-      } else {
-        // Orange: completed && !isReadyToDeduct
-        return 'text-orange-600 dark:text-orange-400';
-      }
-    }
-  };
 
   return (
     <div
@@ -70,9 +53,7 @@ export const ExpensesSection = ({
                           </TooltipContent>
                         </Tooltip>
                       )}
-                      <p className="text-base font-normal text-foreground truncate">
-                        {transaction.note}
-                      </p>
+                      <EditTransactionRedirectBtn transaction={transaction} />
                       {transaction.description && (
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -138,9 +119,7 @@ export const ExpensesSection = ({
                           </TooltipContent>
                         </Tooltip>
                       )}
-                      <p className="text-base font-normal text-foreground truncate">
-                        {transaction.note}
-                      </p>
+                      <EditTransactionRedirectBtn transaction={transaction} />
                       {transaction.description && (
                         <Tooltip>
                           <TooltipTrigger asChild>
