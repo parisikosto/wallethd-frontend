@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTransactionsByMonthApi, type TransactionsMonthlyData } from '@/api';
 
-export const useTransactionsByMonthQueryKey = ['transactions', 'by-month'];
+import { transactionsQueryKey } from '../constants';
 
 export const useTransactionsByMonth = (
   year?: number,
@@ -17,7 +17,7 @@ export const useTransactionsByMonth = (
     isFetching: isFetchingTransactionsByMonth,
   } = useQuery({
     queryFn: () => getTransactionsByMonthApi(year),
-    queryKey: useTransactionsByMonthQueryKey,
+    queryKey: [transactionsQueryKey, 'useTransactionsByMonth'],
   });
 
   return {

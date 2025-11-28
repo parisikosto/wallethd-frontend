@@ -12,10 +12,9 @@ import {
   type CreateTransactionDto,
   type Transaction,
 } from '@/api';
+import { AppRouterPath } from '@/router';
 
-import { useTransactionsQueryKey } from '../useTransactions';
-import { useTransactionsByMonthQueryKey } from '../useTransactionsByMonth';
-import { useTransactionsSummaryQueryKey } from '../useTransactionsSummary';
+import { transactionsQueryKey } from '../constants';
 
 export const useCreateTransaction = (): {
   createTransaction: UseMutateFunction<
@@ -23,33 +22,26 @@ export const useCreateTransaction = (): {
     Error,
     CreateTransactionDto
   >;
-  isPendingCreate: boolean;
+  isPendingCreateTransaction: boolean;
 } => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { isPending: isPendingCreate, mutate: createTransaction } = useMutation(
-    {
+  const { isPending: isPendingCreateTransaction, mutate: createTransaction } =
+    useMutation({
       mutationFn: createTransactionApi,
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: useTransactionsQueryKey });
-        queryClient.invalidateQueries({
-          queryKey: useTransactionsByMonthQueryKey,
-        });
-        queryClient.invalidateQueries({
-          queryKey: useTransactionsSummaryQueryKey,
-        });
-
+        queryClient.invalidateQueries({ queryKey: [transactionsQueryKey] });
         toast.success('Transaction created successfully');
-        navigate('/transactions', { replace: true });
+
+        navigate(AppRouterPath.Transactions, { replace: true });
       },
       onError: (err) => {
         if (err instanceof Error) {
           toast.error('Failed to create transaction');
         }
       },
-    },
-  );
+    });
 
-  return { createTransaction, isPendingCreate };
+  return { createTransaction, isPendingCreateTransaction };
 };

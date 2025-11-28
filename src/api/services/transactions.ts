@@ -5,6 +5,7 @@ import type {
   Transaction,
   TransactionsMonthlyData,
   TransactionSummary,
+  UpdateTransactionDto,
 } from '../interfaces';
 
 const transactionsUrl = '/v1/transactions';
@@ -18,6 +19,55 @@ export const getTransactionsApi = async (): Promise<
   ApiGenericResponse<Transaction[]>
 > => {
   const res = await axiosInstance.get(`${transactionsUrl}`);
+  return res.data;
+};
+
+/**
+ * @desc    Get single transaction
+ * @route   GET /v1/transactions/:id
+ * @access  Private
+ */
+export const getTransactionApi = async (
+  id: string,
+): Promise<ApiGenericResponse<Transaction>> => {
+  const res = await axiosInstance.get(`${transactionsUrl}/${id}`);
+  return res.data;
+};
+
+/**
+ * @desc    Create new transaction
+ * @route   POST /v1/transactions
+ * @access  Private
+ */
+export const createTransactionApi = async (
+  data: CreateTransactionDto,
+): Promise<ApiGenericResponse<Transaction>> => {
+  const res = await axiosInstance.post(`${transactionsUrl}`, data);
+  return res.data;
+};
+
+/**
+ * @desc    Update transaction
+ * @route   PUT /v1/transactions/:id
+ * @access  Private
+ */
+export const updateTransactionApi = async (
+  id: string,
+  data: UpdateTransactionDto,
+): Promise<ApiGenericResponse<Transaction>> => {
+  const res = await axiosInstance.put(`${transactionsUrl}/${id}`, data);
+  return res.data;
+};
+
+/**
+ * @desc    Delete transaction
+ * @route   DELETE /v1/transactions/:id
+ * @access  Private
+ */
+export const deleteTransactionApi = async (
+  id: string,
+): Promise<ApiGenericResponse<Transaction>> => {
+  const res = await axiosInstance.delete(`${transactionsUrl}/${id}`);
   return res.data;
 };
 
@@ -43,17 +93,5 @@ export const getTransactionsSummaryApi = async (): Promise<
   ApiGenericResponse<TransactionSummary>
 > => {
   const res = await axiosInstance.get(`${transactionsUrl}/summary`);
-  return res.data;
-};
-
-/**
- * @desc    Create new transaction
- * @route   POST /v1/transactions
- * @access  Private
- */
-export const createTransactionApi = async (
-  data: CreateTransactionDto,
-): Promise<ApiGenericResponse<Transaction>> => {
-  const res = await axiosInstance.post(`${transactionsUrl}`, data);
   return res.data;
 };
