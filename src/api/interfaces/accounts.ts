@@ -5,4 +5,5 @@ export interface Account {
   name: string;
   order: number;
   updatedAt: string;
+  user: string;
 }

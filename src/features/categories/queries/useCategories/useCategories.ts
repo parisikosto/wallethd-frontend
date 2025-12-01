@@ -10,7 +10,7 @@ import {
   getCategoriesApi,
 } from '@/api';
 
-export const categoriesQueryKey = 'categories';
+import { categoriesQueryKey } from '../constants';
 
 export const useCategories = (): {
   categories: Category[] | undefined;

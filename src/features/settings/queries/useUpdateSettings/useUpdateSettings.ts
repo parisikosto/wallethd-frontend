@@ -12,7 +12,7 @@ import {
   type UpdateSettingsReqData,
 } from '@/api';
 
-import { settingsQueryKey } from '../useSettings';
+import { settingsQueryKey } from '../constants';
 
 export const useUpdateSettings = (): {
   isPendingUpdate: boolean;

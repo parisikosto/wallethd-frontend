@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSettingsApi, type Settings } from '@/api';
 import { LOCAL_STORAGE_APP_NAME } from '@/api';
 
-export const settingsQueryKey = 'settings';
+import { settingsQueryKey } from '../constants';
 
 export const useSettings = (): {
   isErrorSettings: boolean;

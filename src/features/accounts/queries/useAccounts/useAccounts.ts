@@ -6,7 +6,7 @@ import {
 
 import { type Account, type ApiGenericResponse, getAccountsApi } from '@/api';
 
-export const accountsQueryKey = 'accounts';
+import { accountsQueryKey } from '../constants';
 
 export const useAccounts = (): {
   accounts: Account[] | undefined;
