@@ -6,8 +6,8 @@ import { Button, Card, Field, FieldError, FieldLabel } from '@/ui';
 import { cn } from '@/utils';
 
 import { useCategories } from '../../../../../categories';
-import type { TransactionFormSchema } from '../../CreateTransactionForm';
 import { FormFieldKey } from '../../interfaces';
+import type { TransactionFormSchema } from '../../TransactionForm';
 
 import { useCategoryField } from './useCategoryField';
 import { getCategoryColors, getCategoryIcon } from './utils';

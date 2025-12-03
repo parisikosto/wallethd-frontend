@@ -4,8 +4,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { Button, Field, FieldError, FieldLabel } from '@/ui';
 
 import { useAccounts } from '../../../../../accounts';
-import type { TransactionFormSchema } from '../../CreateTransactionForm';
 import { FormFieldKey } from '../../interfaces';
+import type { TransactionFormSchema } from '../../TransactionForm';
 import { AccountCard } from '../AccountCard';
 
 import { getAccountIcon, getAccountStyle } from './utils';

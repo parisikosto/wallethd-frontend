@@ -4,7 +4,7 @@ import type {
   TransactionType,
 } from '@/api';
 
-import type { CreateTransactionFormSchemaType } from './CreateTransactionForm';
+import type { TransactionFormSchema } from '../TransactionForm';
 
 export const getCreateTransactionPayload = ({
   account,
@@ -23,10 +23,10 @@ export const getCreateTransactionPayload = ({
   status,
   type,
   website,
-}: CreateTransactionFormSchemaType): CreateTransactionDto => {
+}: TransactionFormSchema): CreateTransactionDto => {
   return {
     account,
-    amount,
+    amount: amount || 0,
     category,
     date,
     description:

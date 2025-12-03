@@ -3,8 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import type { Category } from '@/api';
 
-import type { TransactionFormSchema } from '../../CreateTransactionForm';
 import { FormFieldKey } from '../../interfaces';
+import type { TransactionFormSchema } from '../../TransactionForm';
 
 export const useCategoryField = ({
   categories,
