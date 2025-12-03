@@ -6,7 +6,13 @@ import { AppToaster } from './AppToaster';
 import { AppRouter } from './router';
 
 export const App = (): JSX.Element => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

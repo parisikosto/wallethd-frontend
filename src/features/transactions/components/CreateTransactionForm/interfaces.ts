@@ -1,6 +1,7 @@
 export enum FormFieldKey {
   Account = 'account',
   Amount = 'amount',
+  Attachments = 'attachments',
   Category = 'category',
   Date = 'date',
   Description = 'description',

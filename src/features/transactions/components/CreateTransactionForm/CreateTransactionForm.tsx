@@ -34,13 +34,13 @@ import { AccountField, CategoryField } from './components';
 import { FormFieldKey } from './interfaces';
 import { getCreateTransactionPayload } from './utils';
 
-const defaultValues: CreateTransactionFormSchema = {
+const defaultValues: TransactionFormSchema = {
   [FormFieldKey.Type]: TransactionType.Expense,
   [FormFieldKey.Status]: TransactionStatus.Completed,
   [FormFieldKey.Note]: '',
   [FormFieldKey.Facility]: '',
   [FormFieldKey.Category]: '',
-  [FormFieldKey.Amount]: 0,
+  [FormFieldKey.Amount]: null,
   [FormFieldKey.Date]: new Date().toISOString().split('T')[0],
   [FormFieldKey.IssueDate]: '',
   [FormFieldKey.DueDate]: '',
@@ -51,6 +51,7 @@ const defaultValues: CreateTransactionFormSchema = {
   [FormFieldKey.IsInstallment]: false,
   [FormFieldKey.IsReadyToDeduct]: true,
   [FormFieldKey.Website]: '',
+  [FormFieldKey.Attachments]: [],
 };
 
 const validationSchema = z.object({
@@ -72,8 +73,11 @@ const validationSchema = z.object({
     .min(1, { message: 'Category is required' }),
   [FormFieldKey.Amount]: z
     .number()
-    .positive({ message: 'Amount must be positive' })
-    .min(0.01, { message: 'Amount must be at least 0.01' }),
+    .nullable()
+    .refine((val) => val !== null, { message: 'Amount is required' })
+    .refine((val) => val !== null && val > 0 && val >= 0.01, {
+      message: 'Amount must be a positive number and at least 0.01',
+    }),
   [FormFieldKey.Date]: z.string().min(1, { message: 'Date is required' }),
   [FormFieldKey.IssueDate]: z.string(),
   [FormFieldKey.DueDate]: z.string(),
@@ -100,14 +104,16 @@ const validationSchema = z.object({
       { message: 'Must be a valid URL' },
     )
     .or(z.literal('')),
+  [FormFieldKey.Attachments]: z.array(z.string()),
 });
 
-export type CreateTransactionFormSchema = z.infer<typeof validationSchema>;
+export type TransactionFormSchema = z.infer<typeof validationSchema>;
 
 export const CreateTransactionForm = (): JSX.Element => {
-  const { createTransaction, isPendingCreate } = useCreateTransaction();
+  const { createTransaction, isPendingCreateTransaction } =
+    useCreateTransaction();
 
-  const methods = useForm<CreateTransactionFormSchema>({
+  const methods = useForm<TransactionFormSchema>({
     defaultValues,
     resolver: zodResolver(validationSchema),
   });
@@ -119,7 +125,7 @@ export const CreateTransactionForm = (): JSX.Element => {
     register,
   } = methods;
 
-  const onSubmit: SubmitHandler<CreateTransactionFormSchema> = (data) => {
+  const onSubmit: SubmitHandler<TransactionFormSchema> = (data) => {
     const payload = getCreateTransactionPayload(data);
     createTransaction(payload);
   };
@@ -152,7 +158,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                             field.onChange(value);
                           }
                         }}
-                        disabled={isPendingCreate}
+                        disabled={isPendingCreateTransaction}
                         variant="outline"
                         spacing={0}
                         className="w-full"
@@ -200,7 +206,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                             field.onChange(value);
                           }
                         }}
-                        disabled={isPendingCreate}
+                        disabled={isPendingCreateTransaction}
                         variant="outline"
                         spacing={0}
                         className="w-full"
@@ -243,7 +249,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   {...register(FormFieldKey.Note)}
                   type="text"
                   required
-                  disabled={isPendingCreate}
+                  disabled={isPendingCreateTransaction}
                   placeholder="Enter a note"
                   maxLength={50}
                 />
@@ -257,13 +263,19 @@ export const CreateTransactionForm = (): JSX.Element => {
                 <Field className="flex-1">
                   <FieldLabel htmlFor="amount">Amount *</FieldLabel>
                   <Input
-                    {...register(FormFieldKey.Amount, { valueAsNumber: true })}
+                    {...register(FormFieldKey.Amount, {
+                      valueAsNumber: true,
+                      setValueAs: (value) => {
+                        if (value === '' || isNaN(value)) return null;
+                        return value;
+                      },
+                    })}
                     type="number"
                     step="0.01"
                     min="0.01"
                     required
-                    disabled={isPendingCreate}
-                    placeholder="0.00"
+                    disabled={isPendingCreateTransaction}
+                    placeholder="10.00"
                   />
                   {errors[FormFieldKey.Amount]?.message && (
                     <FieldError>
@@ -278,7 +290,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   <Input
                     {...register(FormFieldKey.Facility)}
                     type="text"
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                     placeholder="Enter facility name (optional)"
                     maxLength={50}
                   />
@@ -300,7 +312,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                     {...register(FormFieldKey.Date)}
                     type="date"
                     required
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                   />
                   {errors[FormFieldKey.Date]?.message && (
                     <FieldError>{errors[FormFieldKey.Date].message}</FieldError>
@@ -313,7 +325,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   <Input
                     {...register(FormFieldKey.IssueDate)}
                     type="date"
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                   />
                   {errors[FormFieldKey.IssueDate]?.message && (
                     <FieldError>
@@ -328,7 +340,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   <Input
                     {...register(FormFieldKey.DueDate)}
                     type="date"
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                   />
                   {errors[FormFieldKey.DueDate]?.message && (
                     <FieldError>
@@ -343,7 +355,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   <Input
                     {...register(FormFieldKey.ReminderDate)}
                     type="date"
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                   />
                   {errors[FormFieldKey.ReminderDate]?.message && (
                     <FieldError>
@@ -353,14 +365,12 @@ export const CreateTransactionForm = (): JSX.Element => {
                 </Field>
               </div>
 
-              <AccountField />
-
               {/* Description */}
               <Field>
                 <FieldLabel htmlFor="description">Description</FieldLabel>
                 <textarea
                   {...register(FormFieldKey.Description)}
-                  disabled={isPendingCreate}
+                  disabled={isPendingCreateTransaction}
                   placeholder="Enter a description (optional)"
                   maxLength={500}
                   className="min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
@@ -372,9 +382,12 @@ export const CreateTransactionForm = (): JSX.Element => {
                 )}
               </Field>
 
+              <AccountField />
+
               <div className="flex flex-col md:flex-row gap-4">
                 {/* Checkboxes */}
                 <div className="space-y-4 flex-1">
+                  {/* Receipt Taken */}
                   <Field>
                     <div className="flex items-center space-x-2">
                       <Controller
@@ -384,7 +397,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                           <Checkbox
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            disabled={isPendingCreate}
+                            disabled={isPendingCreateTransaction}
                           />
                         )}
                       />
@@ -397,6 +410,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                     </div>
                   </Field>
 
+                  {/* Is Installment */}
                   <Field>
                     <div className="flex items-center space-x-2">
                       <Controller
@@ -406,7 +420,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                           <Checkbox
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            disabled={isPendingCreate}
+                            disabled={isPendingCreateTransaction}
                           />
                         )}
                       />
@@ -419,6 +433,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                     </div>
                   </Field>
 
+                  {/* Ready to Deduct */}
                   <Field>
                     <div className="flex items-center space-x-2">
                       <Controller
@@ -428,7 +443,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                           <Checkbox
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            disabled={isPendingCreate}
+                            disabled={isPendingCreateTransaction}
                           />
                         )}
                       />
@@ -450,7 +465,7 @@ export const CreateTransactionForm = (): JSX.Element => {
                   <Input
                     {...register(FormFieldKey.Website)}
                     type="url"
-                    disabled={isPendingCreate}
+                    disabled={isPendingCreateTransaction}
                     placeholder="https://example.com (optional)"
                   />
                   {errors[FormFieldKey.Website]?.message && (
@@ -462,8 +477,8 @@ export const CreateTransactionForm = (): JSX.Element => {
               </div>
 
               <Field>
-                <Button type="submit" disabled={isPendingCreate}>
-                  {isPendingCreate ? (
+                <Button type="submit" disabled={isPendingCreateTransaction}>
+                  {isPendingCreateTransaction ? (
                     <>
                       <Spinner className="mr-2" />
                       Creating...
