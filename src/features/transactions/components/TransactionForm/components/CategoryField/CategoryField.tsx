@@ -47,6 +47,7 @@ export const CategoryField = (): JSX.Element => {
     handleBackClick,
     handleChildClick,
     handleParentSelect,
+    isCategorySelectable,
     parentCategories,
   } = useCategoryField({ categories, type, selectedCategoryId });
 
@@ -167,23 +168,43 @@ export const CategoryField = (): JSX.Element => {
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                       {childrenOfExpandedParent.map((child) => {
                         const isSelected = selectedCategoryId === child._id;
+                        const isSelectable = isCategorySelectable(child);
                         const Icon = getCategoryIcon(child.slug);
                         const colors = getCategoryColors(
                           child.slug,
                           child.order,
                         );
 
+                        const iconColorClass =
+                          isSelected && isSelectable
+                            ? 'text-primary'
+                            : isSelectable
+                              ? colors.iconColor
+                              : 'text-muted-foreground';
+
                         const childCard = (
                           <Card
                             className={cn(
-                              'cursor-pointer transition-all hover:shadow-md py-1',
-                              isSelected && 'ring-2 ring-primary bg-primary/5',
+                              'transition-all py-1',
+                              isSelectable
+                                ? 'cursor-pointer hover:shadow-md'
+                                : 'cursor-not-allowed opacity-50',
+                              isSelected &&
+                                isSelectable &&
+                                'ring-2 ring-primary bg-primary/5',
                             )}
-                            onClick={() => handleChildClick(child._id)}
-                            role="button"
-                            tabIndex={0}
+                            onClick={() => {
+                              if (isSelectable) {
+                                handleChildClick(child._id);
+                              }
+                            }}
+                            role={isSelectable ? 'button' : undefined}
+                            tabIndex={isSelectable ? 0 : -1}
                             onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
+                              if (
+                                isSelectable &&
+                                (e.key === 'Enter' || e.key === ' ')
+                              ) {
                                 e.preventDefault();
                                 handleChildClick(child._id);
                               }
@@ -192,17 +213,15 @@ export const CategoryField = (): JSX.Element => {
                             <div className="px-2 py-1 text-center">
                               <div className="flex flex-col items-center gap-1">
                                 <Icon
-                                  className={cn(
-                                    'size-4',
-                                    isSelected
-                                      ? 'text-primary'
-                                      : colors.iconColor,
-                                  )}
+                                  className={cn('size-4', iconColorClass)}
                                 />
                                 <div
                                   className={cn(
                                     'text-sm font-medium leading-tight',
-                                    isSelected && 'text-primary',
+                                    isSelected &&
+                                      isSelectable &&
+                                      'text-primary',
+                                    !isSelectable && 'text-muted-foreground',
                                   )}
                                 >
                                   {child.name}
@@ -232,26 +251,51 @@ export const CategoryField = (): JSX.Element => {
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
               {parentCategories.map((parent) => {
                 const isSelected = selectedCategoryId === parent._id;
+                const isSelectable = isCategorySelectable(parent);
                 const hasChildren = childCategories.some(
                   (cat) => cat.parent?._id === parent._id,
                 );
                 const Icon = getCategoryIcon(parent.slug);
                 const colors = getCategoryColors(parent.slug, parent.order);
 
+                const iconColorClass =
+                  isSelected && !hasChildren && isSelectable
+                    ? 'text-primary'
+                    : isSelectable
+                      ? colors.iconColor
+                      : 'text-muted-foreground';
+
                 const parentCard = (
                   <Card
                     className={cn(
-                      'cursor-pointer transition-all hover:shadow-md py-1 border',
-                      colors.bgColor,
-                      colors.borderColor,
-                      isSelected && !hasChildren && 'ring-2 ring-primary',
-                      isSelected && !hasChildren && 'bg-primary/5',
+                      'transition-all py-1 border',
+                      isSelectable
+                        ? 'cursor-pointer hover:shadow-md'
+                        : 'cursor-not-allowed opacity-50',
+                      isSelectable && colors.bgColor,
+                      isSelectable && colors.borderColor,
+                      !isSelectable && 'bg-muted/30 border-muted',
+                      isSelected &&
+                        !hasChildren &&
+                        isSelectable &&
+                        'ring-2 ring-primary',
+                      isSelected &&
+                        !hasChildren &&
+                        isSelectable &&
+                        'bg-primary/5',
                     )}
-                    onClick={() => handleParentSelect(parent._id)}
-                    role="button"
-                    tabIndex={0}
+                    onClick={() => {
+                      if (isSelectable) {
+                        handleParentSelect(parent._id);
+                      }
+                    }}
+                    role={isSelectable ? 'button' : undefined}
+                    tabIndex={isSelectable ? 0 : -1}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (
+                        isSelectable &&
+                        (e.key === 'Enter' || e.key === ' ')
+                      ) {
                         e.preventDefault();
                         handleParentSelect(parent._id);
                       }
@@ -264,24 +308,28 @@ export const CategoryField = (): JSX.Element => {
                           !hasChildren && 'justify-center min-h-[3rem]',
                         )}
                       >
-                        <Icon
-                          className={cn(
-                            'size-4',
-                            isSelected && !hasChildren
-                              ? 'text-primary'
-                              : colors.iconColor,
-                          )}
-                        />
+                        <Icon className={cn('size-4', iconColorClass)} />
                         <div
                           className={cn(
                             'text-sm font-medium leading-tight',
-                            isSelected && !hasChildren && 'text-primary',
+                            isSelected &&
+                              !hasChildren &&
+                              isSelectable &&
+                              'text-primary',
+                            !isSelectable && 'text-muted-foreground',
                           )}
                         >
                           {parent.name}
                         </div>
                         {hasChildren && (
-                          <div className="mt-0.5 text-[10px] text-muted-foreground leading-tight">
+                          <div
+                            className={cn(
+                              'mt-0.5 text-[10px] leading-tight',
+                              isSelectable
+                                ? 'text-muted-foreground'
+                                : 'text-muted-foreground/70',
+                            )}
+                          >
                             {
                               childCategories.filter(
                                 (cat) => cat.parent?._id === parent._id,

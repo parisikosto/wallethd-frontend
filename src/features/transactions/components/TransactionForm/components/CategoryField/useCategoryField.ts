@@ -21,6 +21,7 @@ export const useCategoryField = ({
   handleBackClick: () => void;
   handleChildClick: (childId: string) => void;
   handleParentSelect: (parentId: string) => void;
+  isCategorySelectable: (category: Category) => boolean;
   parentCategories: Category[];
 } => {
   const { setValue } = useFormContext<TransactionFormSchema>();
@@ -28,6 +29,21 @@ export const useCategoryField = ({
   const filteredCategories = categories.filter(
     ({ transactionType }) => transactionType === type,
   );
+
+  const archivedCategoryIds = new Set(
+    categories.filter((cat) => cat.isArchived === true).map((cat) => cat._id),
+  );
+
+  const isCategorySelectable = (category: Category): boolean => {
+    if (category.isArchived === true) {
+      return false;
+    }
+
+    if (category.parent?._id) {
+      return !archivedCategoryIds.has(category.parent._id);
+    }
+    return true;
+  };
 
   const parentCategories = filteredCategories
     .filter((category) => category.parent === null)
@@ -63,10 +79,18 @@ export const useCategoryField = ({
   };
 
   const handleChildClick = (childId: string): void => {
-    setValue(FormFieldKey.Category, childId);
+    const child = childCategories.find((cat) => cat._id === childId);
+    if (child && isCategorySelectable(child)) {
+      setValue(FormFieldKey.Category, childId);
+    }
   };
 
   const handleParentSelect = (parentId: string): void => {
+    const parent = parentCategories.find((cat) => cat._id === parentId);
+    if (!parent || !isCategorySelectable(parent)) {
+      return;
+    }
+
     const hasChildren = childCategories.some(
       (cat) => cat.parent?._id === parentId,
     );
@@ -87,6 +111,7 @@ export const useCategoryField = ({
     handleBackClick,
     handleChildClick,
     handleParentSelect,
+    isCategorySelectable,
     parentCategories,
   };
 };
