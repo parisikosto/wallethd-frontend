@@ -8,7 +8,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { TransactionStatus, TransactionType } from '@/api';
+import { type Transaction, TransactionStatus, TransactionType } from '@/api';
 import {
   Button,
   Card,
@@ -30,6 +30,7 @@ import { cn } from '@/utils';
 
 import { AccountField, CategoryField } from './components';
 import { FormFieldKey } from './interfaces';
+import { generateDefaultValues } from './utils';
 
 const defaultValues: TransactionFormSchema = {
   [FormFieldKey.Type]: TransactionType.Expense,
@@ -112,6 +113,7 @@ interface TransactionFormProps {
   onSubmit: SubmitHandler<TransactionFormSchema>;
   submitButtonText: string;
   title: string;
+  transaction?: Transaction;
 }
 
 export const TransactionForm = ({
@@ -120,9 +122,12 @@ export const TransactionForm = ({
   onSubmit,
   submitButtonText,
   title,
+  transaction,
 }: TransactionFormProps): JSX.Element => {
   const methods = useForm<TransactionFormSchema>({
-    defaultValues,
+    defaultValues: transaction
+      ? generateDefaultValues(transaction)
+      : defaultValues,
     resolver: zodResolver(validationSchema),
   });
 
@@ -131,6 +136,7 @@ export const TransactionForm = ({
     formState: { errors },
     handleSubmit,
     register,
+    setValue,
   } = methods;
 
   return (
@@ -156,6 +162,7 @@ export const TransactionForm = ({
                         value={field.value}
                         onValueChange={(value) => {
                           if (value) {
+                            setValue(FormFieldKey.Category, '');
                             field.onChange(value);
                           }
                         }}
@@ -482,7 +489,7 @@ export const TransactionForm = ({
                   {isPending ? (
                     <>
                       <Spinner className="mr-2" />
-                      Creating...
+                      {submitButtonText}...
                     </>
                   ) : (
                     submitButtonText

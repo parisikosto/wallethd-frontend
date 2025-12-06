@@ -78,6 +78,9 @@ export const CategoryField = (): JSX.Element => {
   return (
     <Field>
       <FieldLabel htmlFor={FormFieldKey.Category}>Category *</FieldLabel>
+      {errors[FormFieldKey.Category]?.message && (
+        <FieldError>{errors[FormFieldKey.Category].message}</FieldError>
+      )}
       <Controller
         control={control}
         name={FormFieldKey.Category}
@@ -268,9 +271,6 @@ export const CategoryField = (): JSX.Element => {
           );
         }}
       />
-      {errors[FormFieldKey.Category]?.message && (
-        <FieldError>{errors[FormFieldKey.Category].message}</FieldError>
-      )}
     </Field>
   );
 };

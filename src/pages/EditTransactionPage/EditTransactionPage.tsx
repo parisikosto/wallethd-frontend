@@ -48,7 +48,7 @@ export const EditTransactionPage = (): JSX.Element => {
             Update the details of your transaction.
           </p>
         </div>
-        <EditTransactionForm />
+        <EditTransactionForm transaction={transaction} />
       </div>
     </div>
   );
