@@ -1,8 +1,19 @@
 import type { JSX } from 'react';
+import { Fragment } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { ChevronLeft } from 'lucide-react';
 
-import { Button, Card, Field, FieldError, FieldLabel } from '@/ui';
+import { useIsMobile } from '@/hooks';
+import {
+  Button,
+  Card,
+  Field,
+  FieldError,
+  FieldLabel,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/ui';
 import { cn } from '@/utils';
 
 import { useCategories } from '../../../../../categories';
@@ -38,6 +49,8 @@ export const CategoryField = (): JSX.Element => {
     handleParentSelect,
     parentCategories,
   } = useCategoryField({ categories, type, selectedCategoryId });
+
+  const isMobile = useIsMobile();
 
   if (isFetchingCategories) {
     return (
@@ -90,52 +103,60 @@ export const CategoryField = (): JSX.Element => {
             : null;
 
           if (expandedParentId && expandedParent) {
+            const backButtonCard = (
+              <Card
+                className={cn(
+                  'cursor-pointer transition-all hover:shadow-md py-1 border',
+                  'ring-2 ring-primary bg-primary/5',
+                  expandedParent &&
+                    getCategoryColors(expandedParent.slug).borderColor,
+                )}
+                onClick={handleBackClick}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleBackClick();
+                  }
+                }}
+              >
+                <div className="px-2 py-1">
+                  <div className="flex items-center gap-1.5 text-sm font-medium leading-tight text-primary">
+                    <ChevronLeft className="size-4 shrink-0" />
+                    {(() => {
+                      const CategoryIcon = getCategoryIcon(expandedParent.slug);
+                      const colors = getCategoryColors(
+                        expandedParent.slug,
+                        expandedParent.order,
+                      );
+                      return (
+                        <CategoryIcon
+                          className={cn('size-4 shrink-0', colors.iconColor)}
+                        />
+                      );
+                    })()}
+                    <span className="flex-1 text-center">
+                      {expandedParent.name}
+                    </span>
+                  </div>
+                </div>
+              </Card>
+            );
+
             return (
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-                  <Card
-                    className={cn(
-                      'cursor-pointer transition-all hover:shadow-md py-1 border',
-                      'ring-2 ring-primary bg-primary/5',
-                      expandedParent &&
-                        getCategoryColors(expandedParent.slug).borderColor,
-                    )}
-                    onClick={handleBackClick}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleBackClick();
-                      }
-                    }}
-                  >
-                    <div className="px-2 py-1">
-                      <div className="flex items-center gap-1.5 text-sm font-medium leading-tight text-primary">
-                        <ChevronLeft className="size-4 shrink-0" />
-                        {(() => {
-                          const CategoryIcon = getCategoryIcon(
-                            expandedParent.slug,
-                          );
-                          const colors = getCategoryColors(
-                            expandedParent.slug,
-                            expandedParent.order,
-                          );
-                          return (
-                            <CategoryIcon
-                              className={cn(
-                                'size-4 shrink-0',
-                                colors.iconColor,
-                              )}
-                            />
-                          );
-                        })()}
-                        <span className="flex-1 text-center">
-                          {expandedParent.name}
-                        </span>
-                      </div>
-                    </div>
-                  </Card>
+                  {expandedParent.description && !isMobile ? (
+                    <Tooltip>
+                      <TooltipTrigger asChild>{backButtonCard}</TooltipTrigger>
+                      <TooltipContent>
+                        {expandedParent.description}
+                      </TooltipContent>
+                    </Tooltip>
+                  ) : (
+                    backButtonCard
+                  )}
                 </div>
 
                 {childrenOfExpandedParent.length > 0 && (
@@ -152,9 +173,8 @@ export const CategoryField = (): JSX.Element => {
                           child.order,
                         );
 
-                        return (
+                        const childCard = (
                           <Card
-                            key={child._id}
                             className={cn(
                               'cursor-pointer transition-all hover:shadow-md py-1',
                               isSelected && 'ring-2 ring-primary bg-primary/5',
@@ -191,6 +211,15 @@ export const CategoryField = (): JSX.Element => {
                             </div>
                           </Card>
                         );
+
+                        return child.description && !isMobile ? (
+                          <Tooltip key={child._id}>
+                            <TooltipTrigger asChild>{childCard}</TooltipTrigger>
+                            <TooltipContent>{child.description}</TooltipContent>
+                          </Tooltip>
+                        ) : (
+                          <Fragment key={child._id}>{childCard}</Fragment>
+                        );
                       })}
                     </div>
                   </div>
@@ -209,9 +238,8 @@ export const CategoryField = (): JSX.Element => {
                 const Icon = getCategoryIcon(parent.slug);
                 const colors = getCategoryColors(parent.slug, parent.order);
 
-                return (
+                const parentCard = (
                   <Card
-                    key={parent._id}
                     className={cn(
                       'cursor-pointer transition-all hover:shadow-md py-1 border',
                       colors.bgColor,
@@ -265,6 +293,15 @@ export const CategoryField = (): JSX.Element => {
                       </div>
                     </div>
                   </Card>
+                );
+
+                return parent.description && !isMobile ? (
+                  <Tooltip key={parent._id}>
+                    <TooltipTrigger asChild>{parentCard}</TooltipTrigger>
+                    <TooltipContent>{parent.description}</TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <Fragment key={parent._id}>{parentCard}</Fragment>
                 );
               })}
             </div>
