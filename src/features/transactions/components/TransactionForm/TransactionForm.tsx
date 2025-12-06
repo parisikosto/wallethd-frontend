@@ -73,7 +73,7 @@ const validationSchema = z.object({
     .number()
     .nullable()
     .refine((val) => val !== null, { message: 'Amount is required' })
-    .refine((val) => val !== null && val > 0 && val >= 0.01, {
+    .refine((val) => val !== null && val >= 0.01, {
       message: 'Amount must be a positive number and at least 0.01',
     }),
   [FormFieldKey.Date]: z.string().min(1, { message: 'Date is required' }),
