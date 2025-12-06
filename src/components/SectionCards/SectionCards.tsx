@@ -22,27 +22,27 @@ export const SectionCards = (): JSX.Element => {
   if (isFetchingTransactionsSummary) {
     return (
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-2">
-        <Card className="@container/card">
-          <CardHeader>
-            <Skeleton className="h-4 w-24 mb-2" />
-            <Skeleton className="h-8 w-32" />
+        <Card className="@container/card py-3 gap-3 border-l-4 border-l-emerald-500 dark:border-l-emerald-400">
+          <CardHeader className="px-4 pb-1.5 gap-1">
+            <Skeleton className="h-3 w-24" />
+            <Skeleton className="h-5 w-32" />
           </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-40" />
-              <Skeleton className="h-4 w-32" />
+          <CardContent className="px-4 pt-1 pb-0">
+            <div className="space-y-1">
+              <Skeleton className="h-3 w-40" />
+              <Skeleton className="h-3 w-32" />
             </div>
           </CardContent>
         </Card>
-        <Card className="@container/card">
-          <CardHeader>
-            <Skeleton className="h-4 w-24 mb-2" />
-            <Skeleton className="h-8 w-32" />
+        <Card className="@container/card py-3 gap-3 border-l-4 border-l-rose-500 dark:border-l-rose-400">
+          <CardHeader className="px-4 pb-1.5 gap-1">
+            <Skeleton className="h-3 w-24" />
+            <Skeleton className="h-5 w-32" />
           </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-40" />
-              <Skeleton className="h-4 w-32" />
+          <CardContent className="px-4 pt-1 pb-0">
+            <div className="space-y-1">
+              <Skeleton className="h-3 w-40" />
+              <Skeleton className="h-3 w-32" />
             </div>
           </CardContent>
         </Card>
@@ -76,14 +76,14 @@ export const SectionCards = (): JSX.Element => {
 
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-2">
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Total Income</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+      <Card className="@container/card py-3 gap-3 border-l-4 border-l-emerald-500 dark:border-l-emerald-400">
+        <CardHeader className="px-4 pb-1.5 gap-1">
+          <CardDescription className="text-xs">Total Income</CardDescription>
+          <CardTitle className="text-lg font-semibold tabular-nums @[250px]/card:text-xl">
             {formatCurrency(totalIncome)}
           </CardTitle>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        <CardFooter className="flex-col items-start gap-0.5 px-4 pt-1 pb-0 text-xs">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Completed Income: {formatCurrency(completedIncome)}
           </div>
@@ -92,14 +92,14 @@ export const SectionCards = (): JSX.Element => {
           </div>
         </CardFooter>
       </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Total Expenses</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+      <Card className="@container/card py-3 gap-3 border-l-4 border-l-rose-500 dark:border-l-rose-400">
+        <CardHeader className="px-4 pb-1.5 gap-1">
+          <CardDescription className="text-xs">Total Expenses</CardDescription>
+          <CardTitle className="text-lg font-semibold tabular-nums @[250px]/card:text-xl">
             {formatCurrency(totalExpenses)}
           </CardTitle>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        <CardFooter className="flex-col items-start gap-0.5 px-4 pt-1 pb-0 text-xs">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Completed Expenses: {formatCurrency(completedExpenses)}
           </div>
