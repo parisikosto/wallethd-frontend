@@ -287,6 +287,8 @@ export function DataTable({
   data: z.infer<typeof schema>[];
   showFilters: boolean;
 }): JSX.Element {
+  'use no memo';
+
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -406,6 +408,7 @@ export function DataTable({
     [filteredDataByYear],
   );
 
+  // eslint-disable-next-line
   const table = useReactTable({
     data: filteredDataByYear,
     columns,

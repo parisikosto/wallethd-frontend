@@ -13,7 +13,7 @@ import {
   SignupPage,
   TransactionsPage,
 } from '../../pages';
-import { AppRouterPath } from '../interfaces';
+import { AppRouterPath } from '../constants';
 import { ProtectedRoute } from '../ProtectedRoute';
 
 export const AppRouter = (): JSX.Element => {

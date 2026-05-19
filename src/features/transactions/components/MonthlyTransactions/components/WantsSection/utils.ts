@@ -32,16 +32,10 @@ export const getWeeksInMonth = (month: number, year: number): WeekBudget[] => {
       });
     };
 
-    let label = '';
-    if (currentWeekStart.getMonth() === weekEnd.getMonth()) {
-      label = `${formatDay(currentWeekStart)}-${formatDay(
-        weekEnd,
-      )} ${formatMonth(weekEnd)}`;
-    } else {
-      label = `${formatDay(currentWeekStart)} ${formatMonth(
-        currentWeekStart,
-      )}-${formatDay(weekEnd)} ${formatMonth(weekEnd)}`;
-    }
+    const label =
+      currentWeekStart.getMonth() === weekEnd.getMonth()
+        ? `${formatDay(currentWeekStart)}-${formatDay(weekEnd)} ${formatMonth(weekEnd)}`
+        : `${formatDay(currentWeekStart)} ${formatMonth(currentWeekStart)}-${formatDay(weekEnd)} ${formatMonth(weekEnd)}`;
 
     weeks.push({
       endDate: new Date(weekEnd),

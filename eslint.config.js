@@ -3,7 +3,7 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
-import typescriptSortKeys from 'eslint-plugin-typescript-sort-keys';
+import perfectionist from 'eslint-plugin-perfectionist';
 import unusedImports from 'eslint-plugin-unused-imports';
 import sortExportAll from 'eslint-plugin-sort-export-all';
 import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys';
@@ -20,7 +20,7 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
     languageOptions: {
@@ -28,7 +28,7 @@ export default defineConfig([
       globals: globals.browser,
     },
     plugins: {
-      'typescript-sort-keys': typescriptSortKeys,
+      perfectionist,
       'unused-imports': unusedImports,
       'sort-export-all': sortExportAll,
       'sort-destructure-keys': sortDestructureKeys,
@@ -39,8 +39,8 @@ export default defineConfig([
       // general
       'no-console': 'warn',
       // eslint plugins
-      'typescript-sort-keys/string-enum': 'error',
-      'typescript-sort-keys/interface': 'error',
+      'perfectionist/sort-enums': 'error',
+      'perfectionist/sort-interfaces': 'error',
       'sort-export-all/sort-export-all': 'off',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [

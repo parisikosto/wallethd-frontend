@@ -17,7 +17,7 @@ import {
 import { cn } from '@/utils';
 
 import { useCategories } from '../../../../../categories';
-import { FormFieldKey } from '../../interfaces';
+import { FormFieldKey } from '../../constants';
 import type { TransactionFormSchema } from '../../TransactionForm';
 
 import { useCategoryField } from './useCategoryField';
@@ -93,7 +93,7 @@ export const CategoryField = (): JSX.Element => {
     <Field>
       <FieldLabel htmlFor={FormFieldKey.Category}>Category *</FieldLabel>
       {errors[FormFieldKey.Category]?.message && (
-        <FieldError>{errors[FormFieldKey.Category].message}</FieldError>
+        <FieldError>{errors[FormFieldKey.Category]?.message}</FieldError>
       )}
       <Controller
         control={control}

@@ -14,15 +14,19 @@ export interface TransactionCategory {
   parent: TransactionParentCategory | null;
 }
 
-export enum TransactionStatus {
-  Completed = 'completed',
-  Pending = 'pending',
-}
+export const TransactionStatus = {
+  Completed: 'completed',
+  Pending: 'pending',
+} as const;
+export type TransactionStatus =
+  (typeof TransactionStatus)[keyof typeof TransactionStatus];
 
-export enum TransactionType {
-  Expense = 'expense',
-  Income = 'income',
-}
+export const TransactionType = {
+  Expense: 'expense',
+  Income: 'income',
+} as const;
+export type TransactionType =
+  (typeof TransactionType)[keyof typeof TransactionType];
 
 export interface Transaction {
   _id: string;

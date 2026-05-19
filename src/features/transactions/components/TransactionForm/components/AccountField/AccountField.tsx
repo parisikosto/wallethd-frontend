@@ -4,7 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { Button, Field, FieldError, FieldLabel } from '@/ui';
 
 import { useAccounts } from '../../../../../accounts';
-import { FormFieldKey } from '../../interfaces';
+import { FormFieldKey } from '../../constants';
 import type { TransactionFormSchema } from '../../TransactionForm';
 import { AccountCard } from '../AccountCard';
 
@@ -94,7 +94,7 @@ export const AccountField = (): JSX.Element => {
         )}
       />
       {errors[FormFieldKey.Account]?.message && (
-        <FieldError>{errors[FormFieldKey.Account].message}</FieldError>
+        <FieldError>{errors[FormFieldKey.Account]?.message}</FieldError>
       )}
     </Field>
   );

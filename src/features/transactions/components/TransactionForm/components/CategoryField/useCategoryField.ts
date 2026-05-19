@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type { Category } from '@/api';
 
-import { FormFieldKey } from '../../interfaces';
+import { FormFieldKey } from '../../constants';
 import type { TransactionFormSchema } from '../../TransactionForm';
 
 export const useCategoryField = ({
@@ -62,12 +62,16 @@ export const useCategoryField = ({
     selectedParentId || null,
   );
 
-  useEffect(() => {
+  const [prevSelectedCategoryId, setPrevSelectedCategoryId] =
+    useState(selectedCategoryId);
+
+  if (prevSelectedCategoryId !== selectedCategoryId) {
+    setPrevSelectedCategoryId(selectedCategoryId);
     if (selectedCategory) {
       const parentId = selectedCategory.parent?._id || selectedCategory._id;
       setExpandedParentId(parentId);
     }
-  }, [selectedCategoryId, selectedCategory]);
+  }
 
   const childrenOfExpandedParent = childCategories.filter(
     (category) => category.parent?._id === expandedParentId,

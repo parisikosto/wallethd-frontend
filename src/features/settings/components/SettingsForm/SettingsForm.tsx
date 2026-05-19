@@ -28,11 +28,11 @@ import { cn } from '@/utils';
 
 import { useUpdateSettings } from '../../queries';
 
-enum CurrencyCode {
-  EUR = 'EUR',
-  GBP = 'GBP',
-  USD = 'USD',
-}
+const CurrencyCode = {
+  EUR: 'EUR',
+  GBP: 'GBP',
+  USD: 'USD',
+} as const;
 
 const CURRENCY_OPTIONS = [
   { label: 'USD - US Dollar', value: CurrencyCode.USD },
@@ -40,14 +40,14 @@ const CURRENCY_OPTIONS = [
   { label: 'GBP - British Pound', value: CurrencyCode.GBP },
 ];
 
-enum LocaleCode {
-  DE_DE = 'de-DE',
-  EL_GR = 'el-GR',
-  EN_GB = 'en-GB',
-  EN_US = 'en-US',
-  ES_ES = 'es-ES',
-  FR_FR = 'fr-FR',
-}
+const LocaleCode = {
+  DE_DE: 'de-DE',
+  EL_GR: 'el-GR',
+  EN_GB: 'en-GB',
+  EN_US: 'en-US',
+  ES_ES: 'es-ES',
+  FR_FR: 'fr-FR',
+} as const;
 
 const LOCALE_OPTIONS = [
   { label: 'English (US)', value: LocaleCode.EN_US },
@@ -92,9 +92,10 @@ export const SettingsForm = ({
     register,
   } = useForm<SettingsFormSchemaType>({
     defaultValues: {
-      defaultCurrency: defaultCurrency as CurrencyCode,
+      defaultCurrency:
+        defaultCurrency as SettingsFormSchemaType['defaultCurrency'],
       firstDayOfMonth,
-      locale: locale as LocaleCode,
+      locale: locale as SettingsFormSchemaType['locale'],
       showDeletedMedia,
     },
     resolver: zodResolver(validationSchema),

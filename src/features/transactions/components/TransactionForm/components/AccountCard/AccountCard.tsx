@@ -12,9 +12,9 @@ interface AccountStyle {
 }
 
 interface AccountCardProps {
-  Icon: LucideIcon;
   account: { _id: string; name: string };
   accountStyle: AccountStyle;
+  Icon: LucideIcon;
   isSelected: boolean;
   onSelect: () => void;
 }

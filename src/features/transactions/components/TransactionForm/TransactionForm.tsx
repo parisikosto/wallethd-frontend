@@ -29,7 +29,7 @@ import {
 import { cn } from '@/utils';
 
 import { AccountField, CategoryField } from './components';
-import { FormFieldKey } from './interfaces';
+import { FormFieldKey } from './constants';
 import { generateDefaultValues } from './utils';
 
 const defaultValues: TransactionFormSchema = {
@@ -105,7 +105,7 @@ const validationSchema = z.object({
   [FormFieldKey.Attachments]: z.array(z.string()),
 });
 
-export type TransactionFormSchema = z.infer<typeof validationSchema>;
+export type TransactionFormSchema = z.input<typeof validationSchema>;
 
 interface TransactionFormProps {
   description: string;
@@ -195,7 +195,9 @@ export const TransactionForm = ({
                     )}
                   />
                   {errors[FormFieldKey.Type]?.message && (
-                    <FieldError>{errors[FormFieldKey.Type].message}</FieldError>
+                    <FieldError>
+                      {errors[FormFieldKey.Type]?.message}
+                    </FieldError>
                   )}
                 </Field>
 
@@ -244,7 +246,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.Status]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.Status].message}
+                      {errors[FormFieldKey.Status]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -262,7 +264,7 @@ export const TransactionForm = ({
                   maxLength={50}
                 />
                 {errors[FormFieldKey.Note]?.message && (
-                  <FieldError>{errors[FormFieldKey.Note].message}</FieldError>
+                  <FieldError>{errors[FormFieldKey.Note]?.message}</FieldError>
                 )}
               </Field>
 
@@ -287,7 +289,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.Amount]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.Amount].message}
+                      {errors[FormFieldKey.Amount]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -304,7 +306,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.Facility]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.Facility].message}
+                      {errors[FormFieldKey.Facility]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -323,7 +325,9 @@ export const TransactionForm = ({
                     disabled={isPending}
                   />
                   {errors[FormFieldKey.Date]?.message && (
-                    <FieldError>{errors[FormFieldKey.Date].message}</FieldError>
+                    <FieldError>
+                      {errors[FormFieldKey.Date]?.message}
+                    </FieldError>
                   )}
                 </Field>
 
@@ -337,7 +341,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.IssueDate]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.IssueDate].message}
+                      {errors[FormFieldKey.IssueDate]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -352,7 +356,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.DueDate]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.DueDate].message}
+                      {errors[FormFieldKey.DueDate]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -367,7 +371,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.ReminderDate]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.ReminderDate].message}
+                      {errors[FormFieldKey.ReminderDate]?.message}
                     </FieldError>
                   )}
                 </Field>
@@ -385,7 +389,7 @@ export const TransactionForm = ({
                 />
                 {errors[FormFieldKey.Description]?.message && (
                   <FieldError>
-                    {errors[FormFieldKey.Description].message}
+                    {errors[FormFieldKey.Description]?.message}
                   </FieldError>
                 )}
               </Field>
@@ -478,7 +482,7 @@ export const TransactionForm = ({
                   />
                   {errors[FormFieldKey.Website]?.message && (
                     <FieldError>
-                      {errors[FormFieldKey.Website].message}
+                      {errors[FormFieldKey.Website]?.message}
                     </FieldError>
                   )}
                 </Field>
