@@ -1,14 +1,14 @@
 install:
-	pnpm install
+	@pnpm install
 
 start:
-	pnpm run dev
+	@pnpm run dev
 
 lint:
-	pnpm run lint
+	@pnpm run lint
 
 lint-fix:
-	pnpm run lint:fix
+	@pnpm run lint:fix
 
 tsc:
-	pnpm run tsc
+	@pnpm run tsc
