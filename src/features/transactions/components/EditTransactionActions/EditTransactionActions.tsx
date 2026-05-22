@@ -18,7 +18,7 @@ export const EditTransactionActions = ({
 }: EditTransactionActionsProps): JSX.Element => {
   const navigate = useNavigate();
   const { deleteTransaction, isPendingDeleteTransaction } =
-    useDeleteTransaction(AppRouterPath.Transactions);
+    useDeleteTransaction({ navigateBack: true });
 
   const isDisabled = disabled || isPendingDeleteTransaction;
 

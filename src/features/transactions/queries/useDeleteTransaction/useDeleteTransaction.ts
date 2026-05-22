@@ -14,8 +14,13 @@ import {
 
 import { transactionsQueryKey } from '../constants';
 
+type UseDeleteTransactionOptions = {
+  navigateBack?: boolean;
+  returnPath?: string;
+};
+
 export const useDeleteTransaction = (
-  returnPath?: string,
+  options?: UseDeleteTransactionOptions,
 ): {
   deleteTransaction: UseMutateFunction<
     ApiGenericResponse<Transaction>,
@@ -34,8 +39,10 @@ export const useDeleteTransaction = (
         queryClient.invalidateQueries({ queryKey: [transactionsQueryKey] });
         toast.success('Transaction deleted successfully');
 
-        if (returnPath) {
-          navigate(returnPath, { replace: true });
+        if (options?.returnPath) {
+          navigate(options.returnPath, { replace: true });
+        } else if (options?.navigateBack) {
+          navigate(-1);
         }
       },
       onError: (err) => {
