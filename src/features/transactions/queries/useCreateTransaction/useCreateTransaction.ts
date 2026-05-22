@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { createTransactionApi, type CreateTransactionDto } from '@/api';
-import { AppRouterPath } from '@/router';
 
 import { transactionsQueryKey } from '../constants';
 
@@ -41,7 +40,7 @@ export const useCreateTransaction = (): {
         toast.success('Transaction created successfully');
 
         if (!options?.skipNavigation) {
-          navigate(AppRouterPath.Transactions, { replace: true });
+          navigate(-1);
         }
 
         options?.onSuccess?.();
