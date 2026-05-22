@@ -31,8 +31,7 @@ export const getUpdateTransactionPayload = ({
     attachments,
     category,
     date,
-    description:
-      description && description.trim() !== '' ? description : undefined,
+    description: description && description.trim() !== '' ? description : '',
     dueDate: dueDate && dueDate.trim() !== '' ? dueDate : undefined,
     facility: facility && facility.trim() !== '' ? facility : undefined,
     issueDate: issueDate && issueDate.trim() !== '' ? issueDate : undefined,
