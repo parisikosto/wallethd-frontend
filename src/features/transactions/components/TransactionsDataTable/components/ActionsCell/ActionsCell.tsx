@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IconDotsVertical } from '@tabler/icons-react';
 
+import { useDeleteTransaction } from '@/features/transactions/queries';
 import { AppRouterPath } from '@/router';
 import {
   Button,
@@ -18,6 +19,8 @@ export const ActionsCell = ({
   transactionId: string;
 }): JSX.Element => {
   const navigate = useNavigate();
+  const { deleteTransaction, isPendingDeleteTransaction } =
+    useDeleteTransaction();
 
   return (
     <DropdownMenu>
@@ -43,7 +46,13 @@ export const ActionsCell = ({
         </DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          variant="destructive"
+          disabled={isPendingDeleteTransaction}
+          onClick={() => deleteTransaction(transactionId)}
+        >
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
