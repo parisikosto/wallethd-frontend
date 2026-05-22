@@ -9,12 +9,14 @@ export const useTransactionsByMonth = (
 ): {
   isErrorTransactionsByMonth: boolean;
   isFetchingTransactionsByMonth: boolean;
+  isPendingTransactionsByMonth: boolean;
   transactionsByMonth: TransactionsMonthlyData[] | undefined;
 } => {
   const {
     data: transactionsByMonthData,
     isError: isErrorTransactionsByMonth,
     isFetching: isFetchingTransactionsByMonth,
+    isPending: isPendingTransactionsByMonth,
   } = useQuery({
     queryFn: () => getTransactionsByMonthApi(year),
     queryKey: [transactionsQueryKey, 'useTransactionsByMonth', year],
@@ -23,6 +25,7 @@ export const useTransactionsByMonth = (
   return {
     isErrorTransactionsByMonth,
     isFetchingTransactionsByMonth,
+    isPendingTransactionsByMonth,
     transactionsByMonth: transactionsByMonthData?.data,
   };
 };

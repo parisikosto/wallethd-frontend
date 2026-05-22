@@ -21,12 +21,12 @@ interface MonthlyTransactionsProps {
 export const MonthlyTransactions = ({
   year,
 }: MonthlyTransactionsProps): JSX.Element => {
-  const { isFetchingTransactionsByMonth, transactionsByMonth } =
+  const { isPendingTransactionsByMonth, transactionsByMonth } =
     useTransactionsByMonth(year);
 
   const containerRef = useEqualizeSectionHeights(transactionsByMonth);
 
-  if (isFetchingTransactionsByMonth) {
+  if (isPendingTransactionsByMonth) {
     return <LoadingSkeleton />;
   }
 
