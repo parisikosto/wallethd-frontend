@@ -30,7 +30,7 @@ const getLocalStorageItems = (): {
  * @returns Formatted date string
  *
  * @example
- * formatDate('2024-01-15') // Uses user's locale from settings
+ * formatDate('2024-01-15') // "15/01/2024"
  * formatDate('2024-01-15', { day: 'numeric', month: 'short' }) // Custom format with user's locale
  */
 export const formatDate = (
@@ -41,19 +41,24 @@ export const formatDate = (
     return '-';
   }
 
-  const date = new Date(dateString);
+  const datePart = dateString.split('T')[0];
+  const [year, month, day] = datePart.split('-');
 
-  if (isNaN(date.getTime())) {
+  if (!year || !month || !day) {
     return '-';
   }
 
-  const { locale } = getLocalStorageItems();
+  if (options) {
+    const date = new Date(dateString);
 
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  };
+    if (isNaN(date.getTime())) {
+      return '-';
+    }
 
-  return date.toLocaleDateString(locale, options || defaultOptions);
+    const { locale } = getLocalStorageItems();
+
+    return date.toLocaleDateString(locale, options);
+  }
+
+  return `${day}/${month}/${year}`;
 };
