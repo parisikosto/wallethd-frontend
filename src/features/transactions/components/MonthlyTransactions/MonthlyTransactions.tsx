@@ -88,12 +88,19 @@ export const MonthlyTransactions = ({
                     expectedSavings={expectedSavings}
                     wantsBudget={wantsBudget}
                   />
-                  <IncomeSection incomes={incomes} totalIncome={totalIncome} />
+                  <IncomeSection
+                    incomes={incomes}
+                    monthIndex={monthIndex}
+                    totalIncome={totalIncome}
+                    year={displayYear}
+                  />
                   <ExpensesSection
                     budgetForNecessities={budgetForNecessities}
                     expenses={expenses}
                     isOverBudget={isOverBudget}
+                    monthIndex={monthIndex}
                     totalExpenses={totalExpenses}
+                    year={displayYear}
                   />
                   <WantsSection
                     currentYear={displayYear}

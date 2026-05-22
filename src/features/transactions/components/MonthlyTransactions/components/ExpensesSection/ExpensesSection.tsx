@@ -5,6 +5,7 @@ import type { Transaction } from '@/api';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui';
 import { formatCurrency, formatDate } from '@/utils';
 
+import { AddExpenseTransactionBtn } from '../AddExpenseTransactionBtn';
 import { EditTransactionRedirectBtn } from '../EditTransactionRedirectBtn';
 
 import { getInstallmentIconColor } from './utils';
@@ -13,14 +14,18 @@ interface ExpensesSectionProps {
   budgetForNecessities: number;
   expenses: Transaction[];
   isOverBudget: boolean;
+  monthIndex: number;
   totalExpenses: number;
+  year: number;
 }
 
 export const ExpensesSection = ({
   budgetForNecessities,
   expenses,
   isOverBudget,
+  monthIndex,
   totalExpenses,
+  year,
 }: ExpensesSectionProps): JSX.Element => {
   const completedExpenses = expenses.filter((t) => t.status === 'completed');
   const pendingExpenses = expenses.filter((t) => t.status === 'pending');
@@ -30,7 +35,10 @@ export const ExpensesSection = ({
       data-section="expenses"
       className="bg-orange-200 dark:bg-orange-950/30 px-4 pt-3 pb-5 flex flex-col"
     >
-      <h3 className="text-base font-bold mb-3 text-foreground">Expenses</h3>
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <h3 className="text-base font-bold text-foreground">Expenses</h3>
+        <AddExpenseTransactionBtn monthIndex={monthIndex} year={year} />
+      </div>
       {expenses.length > 0 ? (
         <>
           <div className="flex-1 space-y-2">

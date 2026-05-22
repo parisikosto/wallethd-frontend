@@ -1,6 +1,28 @@
-import { type Transaction, TransactionStatus } from '@/api';
+import { type Transaction, TransactionStatus, TransactionType } from '@/api';
 
 import type { TransactionFormSchema } from '../TransactionForm';
+
+import { FormFieldKey } from './constants';
+
+export const getEmptyTransactionFormValues = (): TransactionFormSchema => ({
+  [FormFieldKey.Type]: TransactionType.Expense,
+  [FormFieldKey.Status]: TransactionStatus.Completed,
+  [FormFieldKey.Note]: '',
+  [FormFieldKey.Facility]: '',
+  [FormFieldKey.Category]: '',
+  [FormFieldKey.Amount]: null,
+  [FormFieldKey.Date]: new Date().toISOString().split('T')[0],
+  [FormFieldKey.IssueDate]: '',
+  [FormFieldKey.DueDate]: '',
+  [FormFieldKey.ReminderDate]: '',
+  [FormFieldKey.Description]: '',
+  [FormFieldKey.Account]: '',
+  [FormFieldKey.ReceiptTaken]: false,
+  [FormFieldKey.IsInstallment]: false,
+  [FormFieldKey.IsReadyToDeduct]: true,
+  [FormFieldKey.Website]: '',
+  [FormFieldKey.Attachments]: [],
+});
 
 export const generateDefaultValues = (
   transaction: Transaction,

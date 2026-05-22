@@ -5,16 +5,21 @@ import type { Transaction } from '@/api';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/ui';
 import { formatCurrency } from '@/utils';
 
+import { AddIncomeTransactionBtn } from '../AddIncomeTransactionBtn';
 import { EditTransactionRedirectBtn } from '../EditTransactionRedirectBtn';
 
 interface IncomeSectionProps {
   incomes: Transaction[];
+  monthIndex: number;
   totalIncome: number;
+  year: number;
 }
 
 export const IncomeSection = ({
   incomes,
+  monthIndex,
   totalIncome,
+  year,
 }: IncomeSectionProps): JSX.Element => {
   const completedIncomes = incomes.filter((t) => t.status === 'completed');
   const pendingIncomes = incomes.filter((t) => t.status === 'pending');
@@ -24,7 +29,10 @@ export const IncomeSection = ({
       data-section="income"
       className="bg-green-100 dark:bg-green-950/30 px-4 py-3"
     >
-      <h3 className="text-base font-bold mb-3 text-foreground">Incomes</h3>
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <h3 className="text-base font-bold text-foreground">Incomes</h3>
+        <AddIncomeTransactionBtn monthIndex={monthIndex} year={year} />
+      </div>
       {incomes.length > 0 ? (
         <div className="space-y-2">
           {completedIncomes.map((transaction, idx) => (

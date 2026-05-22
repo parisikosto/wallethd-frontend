@@ -30,27 +30,7 @@ import { cn } from '@/utils';
 
 import { AccountField, CategoryField } from './components';
 import { FormFieldKey } from './constants';
-import { generateDefaultValues } from './utils';
-
-const defaultValues: TransactionFormSchema = {
-  [FormFieldKey.Type]: TransactionType.Expense,
-  [FormFieldKey.Status]: TransactionStatus.Completed,
-  [FormFieldKey.Note]: '',
-  [FormFieldKey.Facility]: '',
-  [FormFieldKey.Category]: '',
-  [FormFieldKey.Amount]: null,
-  [FormFieldKey.Date]: new Date().toISOString().split('T')[0],
-  [FormFieldKey.IssueDate]: '',
-  [FormFieldKey.DueDate]: '',
-  [FormFieldKey.ReminderDate]: '',
-  [FormFieldKey.Description]: '',
-  [FormFieldKey.Account]: '',
-  [FormFieldKey.ReceiptTaken]: false,
-  [FormFieldKey.IsInstallment]: false,
-  [FormFieldKey.IsReadyToDeduct]: true,
-  [FormFieldKey.Website]: '',
-  [FormFieldKey.Attachments]: [],
-};
+import { generateDefaultValues, getEmptyTransactionFormValues } from './utils';
 
 const validationSchema = z.object({
   [FormFieldKey.Type]: z.enum(
@@ -129,7 +109,9 @@ export const TransactionForm = ({
   const methods = useForm<TransactionFormSchema>({
     defaultValues:
       initialValues ??
-      (transaction ? generateDefaultValues(transaction) : defaultValues),
+      (transaction
+        ? generateDefaultValues(transaction)
+        : getEmptyTransactionFormValues()),
     resolver: zodResolver(validationSchema),
   });
 
