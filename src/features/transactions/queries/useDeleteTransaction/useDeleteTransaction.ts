@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import {
   type UseMutateFunction,
   useMutation,
@@ -13,7 +14,9 @@ import {
 
 import { transactionsQueryKey } from '../constants';
 
-export const useDeleteTransaction = (): {
+export const useDeleteTransaction = (
+  returnPath?: string,
+): {
   deleteTransaction: UseMutateFunction<
     ApiGenericResponse<Transaction>,
     Error,
@@ -21,6 +24,7 @@ export const useDeleteTransaction = (): {
   >;
   isPendingDeleteTransaction: boolean;
 } => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { isPending: isPendingDeleteTransaction, mutate: deleteTransaction } =
@@ -29,6 +33,10 @@ export const useDeleteTransaction = (): {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: [transactionsQueryKey] });
         toast.success('Transaction deleted successfully');
+
+        if (returnPath) {
+          navigate(returnPath, { replace: true });
+        }
       },
       onError: (err) => {
         if (err instanceof Error) {

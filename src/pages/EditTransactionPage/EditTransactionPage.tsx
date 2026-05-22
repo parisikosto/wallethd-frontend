@@ -1,7 +1,11 @@
 import type { JSX } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { EditTransactionForm, useTransaction } from '@/features';
+import {
+  EditTransactionActions,
+  EditTransactionForm,
+  useTransaction,
+} from '@/features';
 import { Spinner } from '@/ui';
 
 export const EditTransactionPage = (): JSX.Element => {
@@ -40,13 +44,16 @@ export const EditTransactionPage = (): JSX.Element => {
   return (
     <div className="container max-w-4xl mx-auto p-6">
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            Edit Transaction
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Update the details of your transaction.
-          </p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Edit Transaction
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Update the details of your transaction.
+            </p>
+          </div>
+          <EditTransactionActions transaction={transaction} />
         </div>
         <EditTransactionForm transaction={transaction} />
       </div>
