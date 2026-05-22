@@ -1,4 +1,4 @@
-import type { Transaction } from '@/api';
+import { type Transaction, TransactionStatus } from '@/api';
 
 import type { TransactionFormSchema } from '../TransactionForm';
 
@@ -45,3 +45,12 @@ export const generateDefaultValues = (
     website: website || '',
   };
 };
+
+export const generateDuplicateDefaultValues = (
+  transaction: Transaction,
+): TransactionFormSchema => ({
+  ...generateDefaultValues(transaction),
+  attachments: [],
+  date: new Date().toISOString().split('T')[0],
+  status: TransactionStatus.Pending,
+});

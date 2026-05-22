@@ -6,6 +6,34 @@ import type { Category } from '@/api';
 import { FormFieldKey } from '../../constants';
 import type { TransactionFormSchema } from '../../TransactionForm';
 
+const getExpandedParentFromSelection = (
+  selectedCategoryId: string,
+  filteredCategories: Category[],
+  childCategories: Category[],
+): string | null => {
+  if (!selectedCategoryId || filteredCategories.length === 0) {
+    return null;
+  }
+
+  const selected = filteredCategories.find(
+    (cat) => cat._id === selectedCategoryId,
+  );
+
+  if (!selected) {
+    return null;
+  }
+
+  if (selected.parent?._id) {
+    return selected.parent._id;
+  }
+
+  const hasChildren = childCategories.some(
+    (cat) => cat.parent?._id === selected._id,
+  );
+
+  return hasChildren ? selected._id : null;
+};
+
 export const useCategoryField = ({
   categories,
   selectedCategoryId,
@@ -53,32 +81,30 @@ export const useCategoryField = ({
     .filter((category) => category.parent !== null)
     .sort((a, b) => a.order - b.order);
 
-  const selectedCategory = filteredCategories.find(
-    (cat) => cat._id === selectedCategoryId,
+  const [browsingParentId, setBrowsingParentId] = useState<string | null>(null);
+
+  const expandedParentIdFromSelection = getExpandedParentFromSelection(
+    selectedCategoryId,
+    filteredCategories,
+    childCategories,
   );
-  const selectedParentId = selectedCategory?.parent?._id || selectedCategoryId;
 
-  const [expandedParentId, setExpandedParentId] = useState<string | null>(
-    selectedParentId || null,
-  );
+  const validBrowsingParentId =
+    browsingParentId &&
+    parentCategories.some((parent) => parent._id === browsingParentId)
+      ? browsingParentId
+      : null;
 
-  const [prevSelectedCategoryId, setPrevSelectedCategoryId] =
-    useState(selectedCategoryId);
-
-  if (prevSelectedCategoryId !== selectedCategoryId) {
-    setPrevSelectedCategoryId(selectedCategoryId);
-    if (selectedCategory) {
-      const parentId = selectedCategory.parent?._id || selectedCategory._id;
-      setExpandedParentId(parentId);
-    }
-  }
+  const expandedParentId = selectedCategoryId
+    ? expandedParentIdFromSelection
+    : validBrowsingParentId;
 
   const childrenOfExpandedParent = childCategories.filter(
     (category) => category.parent?._id === expandedParentId,
   );
 
   const handleBackClick = (): void => {
-    setExpandedParentId(null);
+    setBrowsingParentId(null);
     setValue(FormFieldKey.Category, '');
   };
 
@@ -101,9 +127,9 @@ export const useCategoryField = ({
 
     if (!hasChildren) {
       setValue(FormFieldKey.Category, parentId);
-      setExpandedParentId(null);
+      setBrowsingParentId(null);
     } else {
-      setExpandedParentId(parentId);
+      setBrowsingParentId(parentId);
       setValue(FormFieldKey.Category, '');
     }
   };

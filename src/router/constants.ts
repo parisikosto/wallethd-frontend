@@ -5,6 +5,7 @@ export const AppRouterPath = {
   Settings: '/settings',
   Signup: '/signup',
   Transactions: '/transactions',
+  TransactionsDuplicate: '/transactions/:id/duplicate',
   TransactionsEdit: '/transactions/:id/edit',
   TransactionsNew: '/transactions/new',
   YearSummary: '/year-summary/:year',

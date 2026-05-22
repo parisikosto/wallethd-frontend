@@ -6,6 +6,7 @@ import { LoginLayout, MainLayout } from '@/layouts';
 import {
   CreateTransactionPage,
   DashboardPage,
+  DuplicateTransactionPage,
   EditTransactionPage,
   LoginPage,
   NotFoundPage,
@@ -44,6 +45,10 @@ export const AppRouter = (): JSX.Element => {
           <Route
             path={AppRouterPath.TransactionsEdit}
             element={<EditTransactionPage />}
+          />
+          <Route
+            path={AppRouterPath.TransactionsDuplicate}
+            element={<DuplicateTransactionPage />}
           />
           <Route path={AppRouterPath.Settings} element={<SettingsPage />} />
         </Route>

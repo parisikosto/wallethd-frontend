@@ -44,7 +44,15 @@ export const ActionsCell = ({
         >
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() =>
+            navigate(`/transactions/${transactionId}/duplicate`, {
+              state: { from: AppRouterPath.Transactions },
+            })
+          }
+        >
+          Duplicate
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           variant="destructive"

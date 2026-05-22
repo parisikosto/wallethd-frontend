@@ -109,6 +109,7 @@ export type TransactionFormSchema = z.input<typeof validationSchema>;
 
 interface TransactionFormProps {
   description: string;
+  initialValues?: TransactionFormSchema;
   isPending: boolean;
   onSubmit: SubmitHandler<TransactionFormSchema>;
   submitButtonText: string;
@@ -118,6 +119,7 @@ interface TransactionFormProps {
 
 export const TransactionForm = ({
   description,
+  initialValues,
   isPending,
   onSubmit,
   submitButtonText,
@@ -125,9 +127,9 @@ export const TransactionForm = ({
   transaction,
 }: TransactionFormProps): JSX.Element => {
   const methods = useForm<TransactionFormSchema>({
-    defaultValues: transaction
-      ? generateDefaultValues(transaction)
-      : defaultValues,
+    defaultValues:
+      initialValues ??
+      (transaction ? generateDefaultValues(transaction) : defaultValues),
     resolver: zodResolver(validationSchema),
   });
 
