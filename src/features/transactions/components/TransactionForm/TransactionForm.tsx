@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { type JSX, type ReactNode } from 'react';
 import {
   Controller,
   FormProvider,
@@ -95,6 +95,7 @@ interface TransactionFormProps {
   submitButtonText: string;
   title: string;
   transaction?: Transaction;
+  websiteColumnFooter?: ReactNode;
 }
 
 export const TransactionForm = ({
@@ -105,6 +106,7 @@ export const TransactionForm = ({
   submitButtonText,
   title,
   transaction,
+  websiteColumnFooter,
 }: TransactionFormProps): JSX.Element => {
   const methods = useForm<TransactionFormSchema>({
     defaultValues:
@@ -454,22 +456,25 @@ export const TransactionForm = ({
                 </div>
 
                 {/* Website */}
-                <Field className="flex-1">
-                  <FieldLabel htmlFor={FormFieldKey.Website}>
-                    Website
-                  </FieldLabel>
-                  <Input
-                    {...register(FormFieldKey.Website)}
-                    type="url"
-                    disabled={isPending}
-                    placeholder="https://example.com (optional)"
-                  />
-                  {errors[FormFieldKey.Website]?.message && (
-                    <FieldError>
-                      {errors[FormFieldKey.Website]?.message}
-                    </FieldError>
-                  )}
-                </Field>
+                <div className="flex-1 space-y-4">
+                  <Field>
+                    <FieldLabel htmlFor={FormFieldKey.Website}>
+                      Website
+                    </FieldLabel>
+                    <Input
+                      {...register(FormFieldKey.Website)}
+                      type="url"
+                      disabled={isPending}
+                      placeholder="https://example.com (optional)"
+                    />
+                    {errors[FormFieldKey.Website]?.message && (
+                      <FieldError>
+                        {errors[FormFieldKey.Website]?.message}
+                      </FieldError>
+                    )}
+                  </Field>
+                  {websiteColumnFooter}
+                </div>
               </div>
 
               <Field>
