@@ -7,4 +7,6 @@ export const AppRouterPath = {
   Transactions: '/transactions',
   TransactionsEdit: '/transactions/:id/edit',
   TransactionsNew: '/transactions/new',
+  YearSummary: '/year-summary/:year',
+  YearSummaryFor: (year: number) => `/year-summary/${year}`,
 } as const;

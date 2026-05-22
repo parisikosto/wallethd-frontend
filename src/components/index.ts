@@ -3,6 +3,7 @@ export * from './NavDocuments';
 export * from './NavMain';
 export * from './NavSecondary';
 export * from './NavUser';
+export * from './NavYearSummaries';
 export * from './SectionCards';
 export * from './SiteHeader';
 export * from './SpinnerCustom';

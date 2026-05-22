@@ -14,9 +14,15 @@ import {
 } from './components';
 import { useEqualizeSectionHeights } from './hooks';
 
-export const MonthlyTransactions = (): JSX.Element => {
+interface MonthlyTransactionsProps {
+  year?: number;
+}
+
+export const MonthlyTransactions = ({
+  year,
+}: MonthlyTransactionsProps): JSX.Element => {
   const { isFetchingTransactionsByMonth, transactionsByMonth } =
-    useTransactionsByMonth();
+    useTransactionsByMonth(year);
 
   const containerRef = useEqualizeSectionHeights(transactionsByMonth);
 
@@ -27,6 +33,8 @@ export const MonthlyTransactions = (): JSX.Element => {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
+  const displayYear = year ?? currentYear;
+  const isCurrentYear = displayYear === currentYear;
   const nextMonth = (currentMonth + 1) % 12;
 
   return (
@@ -52,8 +60,8 @@ export const MonthlyTransactions = (): JSX.Element => {
             },
             monthIndex,
           ) => {
-            const isCurrentMonth = monthIndex === currentMonth;
-            const isNextMonth = monthIndex === nextMonth;
+            const isCurrentMonth = isCurrentYear && monthIndex === currentMonth;
+            const isNextMonth = isCurrentYear && monthIndex === nextMonth;
 
             let monthBgColor = 'bg-blue-200 dark:bg-blue-950/30';
             if (isCurrentMonth) {
@@ -71,7 +79,7 @@ export const MonthlyTransactions = (): JSX.Element => {
                 <CardContent className="flex-1 space-y-0 p-0">
                   <div className={`${monthBgColor} text-center py-3`}>
                     <CardTitle className="text-lg">
-                      {MONTHS[monthIndex]} {currentYear}
+                      {MONTHS[monthIndex]} {displayYear}
                     </CardTitle>
                   </div>
                   <hr className="whitespace-nowrap" />
@@ -88,7 +96,7 @@ export const MonthlyTransactions = (): JSX.Element => {
                     totalExpenses={totalExpenses}
                   />
                   <WantsSection
-                    currentYear={currentYear}
+                    currentYear={displayYear}
                     monthIndex={monthIndex}
                     wantsBudget={wantsBudget}
                   />

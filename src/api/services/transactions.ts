@@ -89,9 +89,22 @@ export const getTransactionsByMonthApi = async (
  * @route   GET /v1/transactions/summary
  * @access  Private
  */
-export const getTransactionsSummaryApi = async (): Promise<
-  ApiGenericResponse<TransactionSummary>
+export const getTransactionsSummaryApi = async (
+  year?: number,
+): Promise<ApiGenericResponse<TransactionSummary>> => {
+  const params = year ? { year: year.toString() } : {};
+  const res = await axiosInstance.get(`${transactionsUrl}/summary`, { params });
+  return res.data;
+};
+
+/**
+ * @desc    Get distinct years that have transactions
+ * @route   GET /v1/transactions/years
+ * @access  Private
+ */
+export const getTransactionsYearsApi = async (): Promise<
+  ApiGenericResponse<number[]>
 > => {
-  const res = await axiosInstance.get(`${transactionsUrl}/summary`);
+  const res = await axiosInstance.get(`${transactionsUrl}/years`);
   return res.data;
 };

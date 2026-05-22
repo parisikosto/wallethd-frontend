@@ -12,6 +12,7 @@ import {
   SettingsPage,
   SignupPage,
   TransactionsPage,
+  YearSummaryPage,
 } from '../../pages';
 import { AppRouterPath } from '../constants';
 import { ProtectedRoute } from '../ProtectedRoute';
@@ -28,6 +29,10 @@ export const AppRouter = (): JSX.Element => {
           }
         >
           <Route index element={<DashboardPage />} />
+          <Route
+            path={AppRouterPath.YearSummary}
+            element={<YearSummaryPage />}
+          />
           <Route
             path={AppRouterPath.Transactions}
             element={<TransactionsPage />}

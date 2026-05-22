@@ -24,3 +24,17 @@ export const secondaryNavigationItems = [
     icon: IconSettings,
   },
 ];
+
+export const getPageTitle = (pathname: string): string => {
+  const yearSummaryMatch = /^\/year-summary\/(\d{4})$/.exec(pathname);
+
+  if (yearSummaryMatch) {
+    return `Year Summary ${yearSummaryMatch[1]}`;
+  }
+
+  const item = [...navigationItems, ...secondaryNavigationItems].find(
+    (navItem) => navItem.url === pathname,
+  );
+
+  return item?.title ?? 'Dashboard';
+};

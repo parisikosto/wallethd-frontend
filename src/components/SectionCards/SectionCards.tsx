@@ -12,12 +12,16 @@ import {
 } from '@/ui';
 import { formatCurrency } from '@/utils';
 
-export const SectionCards = (): JSX.Element => {
+interface SectionCardsProps {
+  year?: number;
+}
+
+export const SectionCards = ({ year }: SectionCardsProps): JSX.Element => {
   const {
     isErrorTransactionsSummary,
     isFetchingTransactionsSummary,
     transactionsSummary,
-  } = useTransactionsSummary();
+  } = useTransactionsSummary(year);
 
   if (isFetchingTransactionsSummary) {
     return (

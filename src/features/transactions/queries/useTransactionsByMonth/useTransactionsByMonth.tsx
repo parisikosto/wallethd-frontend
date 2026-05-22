@@ -17,7 +17,7 @@ export const useTransactionsByMonth = (
     isFetching: isFetchingTransactionsByMonth,
   } = useQuery({
     queryFn: () => getTransactionsByMonthApi(year),
-    queryKey: [transactionsQueryKey, 'useTransactionsByMonth'],
+    queryKey: [transactionsQueryKey, 'useTransactionsByMonth', year],
   });
 
   return {
